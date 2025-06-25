@@ -22,7 +22,6 @@ const DomTrend: React.FC<DomTrendProps> = ({ data }) => {
 
   useEffect(() => {
     if (!data) return;
-    console.log("data", data);
 
     // Process the data to add month names and format for charting
     const processedData = data.map((item: any) => ({

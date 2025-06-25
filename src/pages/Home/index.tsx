@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
+// import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 import {
   Select,
   SelectContent,
@@ -7,10 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { TrendingUp, Users, DollarSign, Activity } from 'lucide-react';
-import { Link, useFetcher } from 'react-router-dom';
+// import { TrendingUp, Users, DollarSign, Activity } from 'lucide-react';
+// import { Link, useFetcher } from 'react-router-dom';
 import Navbar from "@/components/containers/Navbar";
-import { getMedianSales } from '@/services/apiServices';
+// import { getMedianSales } from '@/services/apiServices';
 import MedianSalesChart from '@/components/charts/MedianSalesChart';
 import SalesVolume from '@/components/charts/SalesVolume';
 import HistoricalTrend from '@/components/charts/HistoricalTrend';
@@ -20,35 +20,34 @@ import WeeklyPending from '@/components/charts/WeeklyPending';
 import WeeklyPriceReduction from '@/components/charts/WeeklyPriceReduction';
 import RentByCity from '@/components/charts/RentByCity';
 import BeroMetric from '@/components/charts/BeroMetric';
+import SalesListRatio from '@/components/charts/SalesListRatio';
 
-const salesData = [
-  { month: 'Jan', sales: 4000, revenue: 2400 },
-  { month: 'Feb', sales: 3000, revenue: 1398 },
-  { month: 'Mar', sales: 2000, revenue: 9800 },
-  { month: 'Apr', sales: 2780, revenue: 3908 },
-  { month: 'May', sales: 1890, revenue: 4800 },
-  { month: 'Jun', sales: 2390, revenue: 3800 },
-];
+// const salesData = [
+//   { month: 'Jan', sales: 4000, revenue: 2400 },
+//   { month: 'Feb', sales: 3000, revenue: 1398 },
+//   { month: 'Mar', sales: 2000, revenue: 9800 },
+//   { month: 'Apr', sales: 2780, revenue: 3908 },
+//   { month: 'May', sales: 1890, revenue: 4800 },
+//   { month: 'Jun', sales: 2390, revenue: 3800 },
+// ];
 
-const userGrowthData = [
-  { month: 'Jan', users: 1200 },
-  { month: 'Feb', users: 1900 },
-  { month: 'Mar', users: 2800 },
-  { month: 'Apr', users: 3200 },
-  { month: 'May', users: 4100 },
-  { month: 'Jun', users: 5200 },
-];
+// const userGrowthData = [
+//   { month: 'Jan', users: 1200 },
+//   { month: 'Feb', users: 1900 },
+//   { month: 'Mar', users: 2800 },
+//   { month: 'Apr', users: 3200 },
+//   { month: 'May', users: 4100 },
+//   { month: 'Jun', users: 5200 },
+// ];
 
-const pieData = [
-  { name: 'Desktop', value: 60, color: '#8884d8' },
-  { name: 'Mobile', value: 30, color: '#82ca9d' },
-  { name: 'Tablet', value: 10, color: '#ffc658' },
-];
+// const pieData = [
+//   { name: 'Desktop', value: 60, color: '#8884d8' },
+//   { name: 'Mobile', value: 30, color: '#82ca9d' },
+//   { name: 'Tablet', value: 10, color: '#ffc658' },
+// ];
 
 const Home = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Houston");
-  const [currentInventory, setCurrentInventory] = useState<number>(5);
-  const [inventory90daysAgo, setInventory90daysAgo] = useState<number>(5);
   const [medianSalesChartData, setMedianSalesChartData] = useState<any>(null);
   const [salesVolumeChartData, setSalesVolumeChartData] = useState<any>(null);
   const [historicalTrendData, setHistoricalTrendData] = useState<any>(null);
@@ -58,6 +57,7 @@ const Home = () => {
   const [weeklyPriceReductionData, setWeeklyPriceReductionData] = useState<any>(null);
   const [rentByCityData, setRentByCityData] = useState<any>(null);
   const [beroMetricData, setBeroMetricData] = useState<any>(null);
+  const [salesListRatioData, setSalesListRatioData] = useState<any>(null);
 
   useEffect(() => {
     getBeroMetricDataHandler();
@@ -69,6 +69,7 @@ const Home = () => {
     getWeeklyPendingDataHandler();
     getWeeklyPriceReductionDataHandler();
     getRentByCityDataHandler();
+    getSalesListRatioDataHandler();
   }, []);
 
   const getBeroMetricDataHandler = async () => {
@@ -2314,6 +2315,317 @@ const Home = () => {
     setRentByCityData(data)
   }
 
+  const getSalesListRatioDataHandler = async () => {
+    const data = [
+      {
+        "Year": 2020,
+        "Month": 6,
+        "SLPR": 96.15
+      },
+      {
+        "Year": 2020,
+        "Month": 7,
+        "SLPR": 97.99
+      },
+      {
+        "Year": 2020,
+        "Month": 8,
+        "SLPR": 98.12
+      },
+      {
+        "Year": 2020,
+        "Month": 9,
+        "SLPR": 98.21
+      },
+      {
+        "Year": 2020,
+        "Month": 10,
+        "SLPR": 98.29
+      },
+      {
+        "Year": 2020,
+        "Month": 11,
+        "SLPR": 98.36
+      },
+      {
+        "Year": 2020,
+        "Month": 12,
+        "SLPR": 98.21
+      },
+      {
+        "Year": 2021,
+        "Month": 1,
+        "SLPR": 98.22
+      },
+      {
+        "Year": 2021,
+        "Month": 2,
+        "SLPR": 98.32
+      },
+      {
+        "Year": 2021,
+        "Month": 3,
+        "SLPR": 98.67
+      },
+      {
+        "Year": 2021,
+        "Month": 4,
+        "SLPR": 99.29
+      },
+      {
+        "Year": 2021,
+        "Month": 5,
+        "SLPR": 100
+      },
+      {
+        "Year": 2021,
+        "Month": 6,
+        "SLPR": 100
+      },
+      {
+        "Year": 2021,
+        "Month": 7,
+        "SLPR": 100
+      },
+      {
+        "Year": 2021,
+        "Month": 8,
+        "SLPR": 99.82
+      },
+      {
+        "Year": 2021,
+        "Month": 9,
+        "SLPR": 99.61
+      },
+      {
+        "Year": 2021,
+        "Month": 10,
+        "SLPR": 99.32
+      },
+      {
+        "Year": 2021,
+        "Month": 11,
+        "SLPR": 99.14
+      },
+      {
+        "Year": 2021,
+        "Month": 12,
+        "SLPR": 99.04
+      },
+      {
+        "Year": 2022,
+        "Month": 1,
+        "SLPR": 99.17
+      },
+      {
+        "Year": 2022,
+        "Month": 2,
+        "SLPR": 99.8
+      },
+      {
+        "Year": 2022,
+        "Month": 3,
+        "SLPR": 100
+      },
+      {
+        "Year": 2022,
+        "Month": 4,
+        "SLPR": 100
+      },
+      {
+        "Year": 2022,
+        "Month": 5,
+        "SLPR": 100
+      },
+      {
+        "Year": 2022,
+        "Month": 6,
+        "SLPR": 100
+      },
+      {
+        "Year": 2022,
+        "Month": 7,
+        "SLPR": 100
+      },
+      {
+        "Year": 2022,
+        "Month": 8,
+        "SLPR": 99.61
+      },
+      {
+        "Year": 2022,
+        "Month": 9,
+        "SLPR": 98.82
+      },
+      {
+        "Year": 2022,
+        "Month": 10,
+        "SLPR": 98.66
+      },
+      {
+        "Year": 2022,
+        "Month": 11,
+        "SLPR": 98.18
+      },
+      {
+        "Year": 2022,
+        "Month": 12,
+        "SLPR": 97.93
+      },
+      {
+        "Year": 2023,
+        "Month": 1,
+        "SLPR": 97.76
+      },
+      {
+        "Year": 2023,
+        "Month": 2,
+        "SLPR": 98.21
+      },
+      {
+        "Year": 2023,
+        "Month": 3,
+        "SLPR": 98.67
+      },
+      {
+        "Year": 2023,
+        "Month": 4,
+        "SLPR": 99.09
+      },
+      {
+        "Year": 2023,
+        "Month": 5,
+        "SLPR": 99.11
+      },
+      {
+        "Year": 2023,
+        "Month": 6,
+        "SLPR": 98.92
+      },
+      {
+        "Year": 2023,
+        "Month": 7,
+        "SLPR": 99.06
+      },
+      {
+        "Year": 2023,
+        "Month": 8,
+        "SLPR": 98.74
+      },
+      {
+        "Year": 2023,
+        "Month": 9,
+        "SLPR": 98.38
+      },
+      {
+        "Year": 2023,
+        "Month": 10,
+        "SLPR": 98.36
+      },
+      {
+        "Year": 2023,
+        "Month": 11,
+        "SLPR": 98.25
+      },
+      {
+        "Year": 2023,
+        "Month": 12,
+        "SLPR": 98.23
+      },
+      {
+        "Year": 2024,
+        "Month": 1,
+        "SLPR": 97.78
+      },
+      {
+        "Year": 2024,
+        "Month": 2,
+        "SLPR": 98.12
+      },
+      {
+        "Year": 2024,
+        "Month": 3,
+        "SLPR": 98.28
+      },
+      {
+        "Year": 2024,
+        "Month": 4,
+        "SLPR": 98.71
+      },
+      {
+        "Year": 2024,
+        "Month": 5,
+        "SLPR": 98.64
+      },
+      {
+        "Year": 2024,
+        "Month": 6,
+        "SLPR": 98.46
+      },
+      {
+        "Year": 2024,
+        "Month": 7,
+        "SLPR": 98.45
+      },
+      {
+        "Year": 2024,
+        "Month": 8,
+        "SLPR": 98.36
+      },
+      {
+        "Year": 2024,
+        "Month": 9,
+        "SLPR": 97.99
+      },
+      {
+        "Year": 2024,
+        "Month": 10,
+        "SLPR": 98.22
+      },
+      {
+        "Year": 2024,
+        "Month": 11,
+        "SLPR": 98.22
+      },
+      {
+        "Year": 2024,
+        "Month": 12,
+        "SLPR": 97.96
+      },
+      {
+        "Year": 2025,
+        "Month": 1,
+        "SLPR": 97.68
+      },
+      {
+        "Year": 2025,
+        "Month": 2,
+        "SLPR": 98.04
+      },
+      {
+        "Year": 2025,
+        "Month": 3,
+        "SLPR": 98.15
+      },
+      {
+        "Year": 2025,
+        "Month": 4,
+        "SLPR": 98.36
+      },
+      {
+        "Year": 2025,
+        "Month": 5,
+        "SLPR": 98.41
+      },
+      {
+        "Year": 2025,
+        "Month": 6,
+        "SLPR": 98.08
+      }
+    ]
+    setSalesListRatioData(data)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Navigation */}
@@ -2332,53 +2644,6 @@ const Home = () => {
             Explore the housing market with interactive charts and data visualizations
           </p>
         </div>
-
-        {/* Stats Cards */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <Card className="bg-white/70 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Total Revenue</CardTitle>
-              <DollarSign className="h-4 w-4 text-green-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-slate-800">$45,231</div>
-              <p className="text-xs text-slate-500">+20.1% from last month</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/70 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Active Users</CardTitle>
-              <Users className="h-4 w-4 text-blue-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-slate-800">5,234</div>
-              <p className="text-xs text-slate-500">+15.3% from last month</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/70 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Growth Rate</CardTitle>
-              <TrendingUp className="h-4 w-4 text-purple-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-slate-800">+12.5%</div>
-              <p className="text-xs text-slate-500">+2.1% from last month</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/70 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Conversion</CardTitle>
-              <Activity className="h-4 w-4 text-orange-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-slate-800">3.2%</div>
-              <p className="text-xs text-slate-500">+0.5% from last month</p>
-            </CardContent>
-          </Card>
-        </div> */}
 
         {/* Dropdown for city selection */}
         <div className="flex justify-center mb-4">
@@ -2406,6 +2671,7 @@ const Home = () => {
           <WeeklyPending data={weeklyPendingData} />
           <WeeklyPriceReduction data={weeklyPriceReductionData} />
           <RentByCity data={rentByCityData} />
+          <SalesListRatio data={salesListRatioData} />
         </div>
         
         {/* Performance, User Growth, Sales & Revenue, and Device Usage Charts */}

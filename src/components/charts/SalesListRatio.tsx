@@ -3,96 +3,61 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
 
-interface HistoricalTrendProps {
-  data: any
+interface SLPRData {
+  Year: number;
+  Month: number;
+  SLPR: number;
 }
 
-const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
-  const [historicalTrendData, setHistoricalTrendData] = useState<any>(null);
-  const [years, setYears] = useState<string[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>('all');
-  const [selectedMetric, setSelectedMetric] = useState<string>('sales');
-  const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
+interface SalesListRatioProps {
+  data: SLPRData[]
+}
+
+const SalesListRatio: React.FC<SalesListRatioProps> = ({ data }) => {
+  const [salesListRatioData, setSalesListRatioData] = useState<SLPRData[]>([])
+  const [selectedYear, setSelectedYear] = useState<string>('all')
+  const [chartType, setChartType] = useState<'bar' | 'line'>('line')
 
   useEffect(() => {
-    if (!data) return;
+    setSalesListRatioData(data || [])
+  }, [data])
 
-    const combinedData = [...(Array.isArray(data) ? data : [])];
-    
-    const uniqueYears = [...new Set(combinedData.map(item => item.year))].sort();
-    setYears(uniqueYears.map(year => year.toString()));
-    
-    setHistoricalTrendData(combinedData);
-  }, [data]);
+  // Get unique years from data with null check
+  const years = [...new Set((salesListRatioData || []).map(item => item.Year))].sort()
 
-  // Filter data by selected year
-  const filteredData = historicalTrendData?.filter((item: any) => {
-    if (selectedYear === 'all') return true;
-    return item.year.toString() === selectedYear;
-  }) || [];
+  // Filter data based on selected year with null check
+  const filteredData = selectedYear === 'all' 
+    ? (salesListRatioData || [])
+    : (salesListRatioData || []).filter(item => item.Year === parseInt(selectedYear))
 
-  // Process data for chart display
-  const chartData = filteredData.map((item: any) => ({
-    month: new Date(item.month).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
-    sales: item.sales_volume,
-    revenue: Math.round(item.sales_volume * item.avg_price),
-    avg_price: Math.round(item.avg_price),
-    median_price: Math.round(item.median_price),
-    avg_ppsf: Math.round(item.avg_ppsf * 100) / 100,
-    avg_dom: Math.round(item.avg_dom * 10) / 10
-  }));
+  // Format data for chart
+  const chartData = filteredData.map(item => ({
+    month: `${item.Year}-${item.Month.toString().padStart(2, '0')}`,
+    SLPR: item.SLPR,
+    year: item.Year,
+    monthNum: item.Month
+  })).sort((a, b) => a.year - b.year || a.monthNum - b.monthNum)
 
   // Get metric configuration
-  const getMetricConfig = (metric: string) => {
-    const configs = {
-      sales: {
-        label: 'Sales Volume',
-        color: '#3b82f6',
-        formatter: (value: number) => `${value.toLocaleString()} units`,
-        yAxisLabel: 'Sales Volume'
-      },
-      revenue: {
-        label: 'Revenue',
-        color: '#8b5cf6',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Revenue ($)'
-      },
-      avg_price: {
-        label: 'Average Price',
-        color: '#10b981',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Average Price ($)'
-      },
-      median_price: {
-        label: 'Median Price',
-        color: '#f59e0b',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Median Price ($)'
-      },
-      avg_ppsf: {
-        label: 'Avg Price per Sq Ft',
-        color: '#ef4444',
-        formatter: (value: number) => `$${value}`,
-        yAxisLabel: 'Price per Sq Ft ($)'
-      },
-      avg_dom: {
-        label: 'Avg Days on Market',
-        color: '#8b5cf6',
-        formatter: (value: number) => `${value} days`,
-        yAxisLabel: 'Days on Market'
-      }
-    };
-    return configs[metric as keyof typeof configs] || configs.sales;
-  };
+  const metricConfig = {
+    label: 'Sales List Price Ratio',
+    color: '#3b82f6',
+    formatter: (value: number) => `${value.toFixed(2)}%`,
+    yAxisLabel: 'SLPR (%)'
+  }
 
-  const metricConfig = getMetricConfig(selectedMetric);
+  // Calculate summary stats with null checks
+  const currentSLPR = chartData.length > 0 ? chartData[chartData.length - 1].SLPR : 0
+  const avgSLPR = chartData.length > 0 ? chartData.reduce((sum, item) => sum + item.SLPR, 0) / chartData.length : 0
+  const maxSLPR = chartData.length > 0 ? Math.max(...chartData.map(item => item.SLPR)) : 0
+  const minSLPR = chartData.length > 0 ? Math.min(...chartData.map(item => item.SLPR)) : 0
 
   return (
     <div className="lg:col-span-2 bg-white/70 backdrop-blur-sm border-white/20 rounded-lg p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
         <div>
-          <h3 className="text-slate-800 text-lg font-semibold">Sales & Revenue Overview</h3>
-          <p className="text-slate-600 text-sm">Monthly performance metrics</p>
+          <h3 className="text-slate-800 text-lg font-semibold">Sales List Price Ratio (SLPR)</h3>
+          <p className="text-slate-600 text-sm">Market performance indicator over time</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
@@ -104,27 +69,10 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
                 {years.map((year) => (
-                  <SelectItem key={year} value={year}>
+                  <SelectItem key={year} value={year.toString()}>
                     {year}
                   </SelectItem>
                 ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-slate-600">Metric:</label>
-            <Select value={selectedMetric} onValueChange={setSelectedMetric}>
-              <SelectTrigger className="w-40">
-                <SelectValue placeholder="Select metric" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="sales">Sales Volume</SelectItem>
-                <SelectItem value="revenue">Revenue</SelectItem>
-                <SelectItem value="avg_price">Average Price</SelectItem>
-                <SelectItem value="median_price">Median Price</SelectItem>
-                <SelectItem value="avg_ppsf">Avg Price per Sq Ft</SelectItem>
-                <SelectItem value="avg_dom">Avg Days on Market</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -163,6 +111,7 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
             />
             <YAxis 
               stroke="#64748b"
+              domain={[95, 100]}
               label={{ 
                 value: metricConfig.yAxisLabel, 
                 angle: -90, 
@@ -178,10 +127,10 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
               }}
               formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-              labelFormatter={(label) => `Month: ${label}`}
+              labelFormatter={(label) => `Period: ${label}`}
             />
             <Bar 
-              dataKey={selectedMetric} 
+              dataKey="SLPR" 
               fill={metricConfig.color} 
               radius={[4, 4, 0, 0]}
               name={metricConfig.label}
@@ -199,6 +148,7 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
             />
             <YAxis 
               stroke="#64748b"
+              domain={[95, 100]}
               label={{ 
                 value: metricConfig.yAxisLabel, 
                 angle: -90, 
@@ -214,11 +164,11 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
               }}
               formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-              labelFormatter={(label) => `Month: ${label}`}
+              labelFormatter={(label) => `Period: ${label}`}
             />
             <Line 
               type="monotone"
-              dataKey={selectedMetric} 
+              dataKey="SLPR" 
               stroke={metricConfig.color}
               strokeWidth={3}
               dot={{ fill: metricConfig.color, strokeWidth: 2, r: 4 }}
@@ -233,27 +183,27 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
       {chartData.length > 0 && (
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-blue-50 p-3 rounded-lg">
-            <div className="text-sm text-blue-600 font-medium">Total Sales</div>
+            <div className="text-sm text-blue-600 font-medium">Current SLPR</div>
             <div className="text-lg font-bold text-blue-800">
-              {chartData.reduce((sum, item) => sum + item.sales, 0).toLocaleString()}
+              {currentSLPR.toFixed(2)}%
             </div>
           </div>
           <div className="bg-purple-50 p-3 rounded-lg">
-            <div className="text-sm text-purple-600 font-medium">Total Revenue</div>
+            <div className="text-sm text-purple-600 font-medium">Average SLPR</div>
             <div className="text-lg font-bold text-purple-800">
-              ${chartData.reduce((sum, item) => sum + item.revenue, 0).toLocaleString()}
+              {avgSLPR.toFixed(2)}%
             </div>
           </div>
           <div className="bg-green-50 p-3 rounded-lg">
-            <div className="text-sm text-green-600 font-medium">Avg Price</div>
+            <div className="text-sm text-green-600 font-medium">Highest SLPR</div>
             <div className="text-lg font-bold text-green-800">
-              ${Math.round(chartData.reduce((sum, item) => sum + item.avg_price, 0) / chartData.length).toLocaleString()}
+              {maxSLPR.toFixed(2)}%
             </div>
           </div>
           <div className="bg-orange-50 p-3 rounded-lg">
-            <div className="text-sm text-orange-600 font-medium">Avg Days on Market</div>
+            <div className="text-sm text-orange-600 font-medium">Lowest SLPR</div>
             <div className="text-lg font-bold text-orange-800">
-              {Math.round(chartData.reduce((sum, item) => sum + item.avg_dom, 0) / chartData.length)}
+              {minSLPR.toFixed(2)}%
             </div>
           </div>
         </div>
@@ -262,4 +212,4 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data }) => {
   )
 }
 
-export default HistoricalTrend
+export default SalesListRatio
