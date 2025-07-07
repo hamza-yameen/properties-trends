@@ -4,9 +4,10 @@ import { Badge } from '../ui/badge';
 
 interface BeroMetricProps {
   data: any
+  loading: boolean
 }
 
-const BeroMetric: React.FC<BeroMetricProps> = ({ data }) => {
+const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
   const [marketData, setMarketData] = useState<any>(null);
 
   useEffect(() => {
@@ -14,13 +15,70 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data }) => {
     setMarketData(data);
   }, [data]);
 
-  if (!marketData) {
+  if (loading || !marketData) {
     return (
-      <div className="lg:col-span-2 bg-white/70 backdrop-blur-sm border-white/20 rounded-lg p-6">
+      <div className="lg:col-span-2 bg-white/70 backdrop-blur-sm border-white/20 rounded-lg p-6 hover:shadow-xl transition-all duration-300 relative">
         <div className="animate-pulse">
-          <div className="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
-          <div className="h-3 bg-slate-200 rounded w-1/2 mb-6"></div>
-          <div className="h-64 bg-slate-200 rounded"></div>
+          {/* Header Skeleton */}
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+            <div>
+              <div className="h-5 bg-slate-200 rounded w-40 mb-2"></div>
+              <div className="h-4 bg-slate-200 rounded w-56"></div>
+            </div>
+            <div className="h-6 bg-slate-200 rounded-full w-24"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Gauge Chart Skeleton */}
+            <div className="lg:col-span-1">
+              <div className="border-0 shadow-lg bg-gradient-to-br from-slate-50 to-white rounded-lg p-6">
+                <div className="h-6 bg-slate-200 rounded w-32 mx-auto mb-4"></div>
+                <div className="flex flex-col items-center">
+                  <div className="w-48 h-48 bg-slate-200 rounded-full mb-4"></div>
+                  <div className="flex justify-between w-full">
+                    <div className="h-3 bg-slate-200 rounded w-8"></div>
+                    <div className="h-3 bg-slate-200 rounded w-12"></div>
+                    <div className="h-3 bg-slate-200 rounded w-6"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Key Metrics Skeleton */}
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, index) => (
+                  <div key={index} className="border-0 shadow-md rounded-lg p-4 bg-gradient-to-br from-slate-50 to-slate-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="h-3 bg-slate-200 rounded w-20 mb-2"></div>
+                        <div className="h-6 bg-slate-200 rounded w-16"></div>
+                      </div>
+                      <div className="w-8 h-8 bg-slate-200 rounded-full"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Market Analysis Skeleton */}
+              <div className="mt-6 p-4 bg-slate-50 rounded-lg">
+                <div className="h-4 bg-slate-200 rounded w-32 mb-3"></div>
+                <div className="space-y-2">
+                  {[...Array(6)].map((_, index) => (
+                    <div key={index} className="h-3 bg-slate-200 rounded w-full"></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Loading Indicator */}
+          <div className="absolute inset-0 flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-lg">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+              <p className="text-sm text-slate-600 font-medium">Loading market data...</p>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -190,39 +248,6 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Market Insights */}
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <Card className="border-0 shadow-md bg-gradient-to-br from-slate-50 to-white">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <p className="text-xs text-slate-600 font-medium">Days on Market</p>
-                  <p className="text-xl font-bold text-slate-800">{daysOnMarket}</p>
-                  <p className="text-xs text-slate-500">Estimated</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-md bg-gradient-to-br from-slate-50 to-white">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <p className="text-xs text-slate-600 font-medium">Months of Inventory</p>
-                  <p className="text-xl font-bold text-slate-800">{monthsOfInventory}</p>
-                  <p className="text-xs text-slate-500">Supply</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-md bg-gradient-to-br from-slate-50 to-white">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <p className="text-xs text-slate-600 font-medium">Absorption Rate</p>
-                  <p className="text-xl font-bold text-slate-800">{absorptionRate}%</p>
-                  <p className="text-xs text-slate-500">Monthly</p>
                 </div>
               </CardContent>
             </Card>

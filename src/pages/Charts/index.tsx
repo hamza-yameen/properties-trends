@@ -25,6 +25,7 @@ const Home = () => {
   const [allLocations, setAllLocations] = useState<any>([]);
 
   const [beroMetricData, setBeroMetricData] = useState<any>(null);
+  const [beroMetricDataLoading, setBeroMetricDataLoading] = useState<boolean>(false);
 
   const [historicalTrendData, setHistoricalTrendData] = useState<any>(null);
   const [historicalTrendDataLoading, setHistoricalTrendDataLoading] = useState<boolean>(false);
@@ -81,16 +82,14 @@ const Home = () => {
   }
 
   const getBeroMetricDataHandler = async () => {
-    const data = {
-      "matched_by": "city",
-      "ActiveListings": 6389,
-      "NewListings": 7113,
-      "PendingSales": 582,
-      "ClosedSales": 142,
-      "BarometerIndex": 0.05
+    setBeroMetricDataLoading(true)
+    const response = await apiService.getChartData(`GET-Barometer?city=${selectedLocation}`)
+    if (response.success) {
+      setBeroMetricData(response.data)
+    }else {
+      setBeroMetricData(null)
     }
-
-    setBeroMetricData(data)
+    setBeroMetricDataLoading(false)
   }
 
 
@@ -242,8 +241,8 @@ const Home = () => {
         </div>
 
         {/* Median Sales and Sales Volume Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
-          <BeroMetric data={beroMetricData} />
+        <div className="grid grid-cols-1 gap-8 my-8">
+          <BeroMetric data={beroMetricData} loading={beroMetricDataLoading} />
           <HistoricalTrend data={historicalTrendData} loading={historicalTrendDataLoading} />
           <MedianSalesChart data={medianSalesChartData} loading={medianSalesChartDataLoading} />
           <DomTrend data={domTrendData} loading={domTrendDataLoading} />
