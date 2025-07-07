@@ -51,6 +51,13 @@ export class ApiService {
       `get-tables?city=${city}&year=${year}&month=${month}`
     );
   }
+
+  async chatResponse(query: string): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'GET',
+      `Chat-bot?query=${query}`
+    );
+  }
 }
 
 export const apiService = new ApiService();

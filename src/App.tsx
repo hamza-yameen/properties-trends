@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Tables from "./pages/Tables";
 import NotFound from "./pages/NotFound";
 import Charts from "./pages/Charts";
+import Chatbot from "@/components/ui/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/tables" element={<Tables />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
