@@ -10,10 +10,11 @@ interface SLPRData {
 }
 
 interface SalesListRatioProps {
-  data: SLPRData[]
+  data: SLPRData[], 
+  loading: boolean
 }
 
-const SalesListRatio: React.FC<SalesListRatioProps> = ({ data }) => {
+const SalesListRatio: React.FC<SalesListRatioProps> = ({ data, loading }) => {
   const [salesListRatioData, setSalesListRatioData] = useState<SLPRData[]>([])
   const [selectedYear, setSelectedYear] = useState<string>('all')
   const [chartType, setChartType] = useState<'bar' | 'line'>('line')
@@ -99,83 +100,95 @@ const SalesListRatio: React.FC<SalesListRatioProps> = ({ data }) => {
       </div>
 
       <ResponsiveContainer width="100%" height={350}>
-        {chartType === 'bar' ? (
-          <BarChart data={chartData} margin={{ top: 20, right: 40, left: 80, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-            <XAxis 
-              dataKey="month" 
-              stroke="#64748b"
-              angle={-45}
-              textAnchor="end"
-              height={80}
-            />
-            <YAxis 
-              stroke="#64748b"
-              domain={[95, 100]}
-              label={{ 
-                value: metricConfig.yAxisLabel, 
-                angle: -90, 
-                position: 'insideLeft',
-                style: { textAnchor: 'middle' }
-              }}
-            />
-            <Tooltip 
-              contentStyle={{ 
-                background: 'rgba(255, 255, 255, 0.95)', 
-                border: 'none', 
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-              }}
-              formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-              labelFormatter={(label) => `Period: ${label}`}
-            />
-            <Bar 
-              dataKey="SLPR" 
-              fill={metricConfig.color} 
-              radius={[4, 4, 0, 0]}
-              name={metricConfig.label}
-            />
-          </BarChart>
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          </div>
+        ) : chartData && chartData.length > 0 ? (
+          chartType === 'bar' ? (
+            <BarChart data={chartData} margin={{ top: 20, right: 40, left: 80, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis 
+                dataKey="month" 
+                stroke="#64748b"
+                angle={-45}
+                textAnchor="end"
+                height={80}
+              />
+              <YAxis 
+                stroke="#64748b"
+                domain={[95, 100]}
+                label={{ 
+                  value: metricConfig.yAxisLabel, 
+                  angle: -90, 
+                  position: 'insideLeft',
+                  style: { textAnchor: 'middle' }
+                }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  background: 'rgba(255, 255, 255, 0.95)', 
+                  border: 'none', 
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                }}
+                formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
+                labelFormatter={(label) => `Period: ${label}`}
+              />
+              <Bar 
+                dataKey="SLPR" 
+                fill={metricConfig.color} 
+                radius={[4, 4, 0, 0]}
+                name={metricConfig.label}
+              />
+            </BarChart>
+          ) : (
+            <LineChart data={chartData} margin={{ top: 20, right: 40, left: 80, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis 
+                dataKey="month" 
+                stroke="#64748b"
+                angle={-45}
+                textAnchor="end"
+                height={80}
+              />
+              <YAxis 
+                stroke="#64748b"
+                domain={[95, 100]}
+                label={{ 
+                  value: metricConfig.yAxisLabel, 
+                  angle: -90, 
+                  position: 'insideLeft',
+                  style: { textAnchor: 'middle' }
+                }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  background: 'rgba(255, 255, 255, 0.95)', 
+                  border: 'none', 
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                }}
+                formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
+                labelFormatter={(label) => `Period: ${label}`}
+              />
+              <Line 
+                type="monotone"
+                dataKey="SLPR" 
+                stroke={metricConfig.color}
+                strokeWidth={3}
+                dot={{ fill: metricConfig.color, strokeWidth: 2, r: 4 }}
+                activeDot={{ r: 6, stroke: metricConfig.color, strokeWidth: 2 }}
+                name={metricConfig.label}
+              />
+            </LineChart>
+          )
         ) : (
-          <LineChart data={chartData} margin={{ top: 20, right: 40, left: 80, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-            <XAxis 
-              dataKey="month" 
-              stroke="#64748b"
-              angle={-45}
-              textAnchor="end"
-              height={80}
-            />
-            <YAxis 
-              stroke="#64748b"
-              domain={[95, 100]}
-              label={{ 
-                value: metricConfig.yAxisLabel, 
-                angle: -90, 
-                position: 'insideLeft',
-                style: { textAnchor: 'middle' }
-              }}
-            />
-            <Tooltip 
-              contentStyle={{ 
-                background: 'rgba(255, 255, 255, 0.95)', 
-                border: 'none', 
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-              }}
-              formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-              labelFormatter={(label) => `Period: ${label}`}
-            />
-            <Line 
-              type="monotone"
-              dataKey="SLPR" 
-              stroke={metricConfig.color}
-              strokeWidth={3}
-              dot={{ fill: metricConfig.color, strokeWidth: 2, r: 4 }}
-              activeDot={{ r: 6, stroke: metricConfig.color, strokeWidth: 2 }}
-              name={metricConfig.label}
-            />
-          </LineChart>
+          <div className="flex items-center justify-center h-full">
+            <p className="text-slate-500">No data available for the selected location.</p>
+          </div>
         )}
       </ResponsiveContainer>
 

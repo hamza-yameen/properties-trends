@@ -1,0 +1,263 @@
+import {useEffect, useState} from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import Navbar from "@/components/containers/Navbar";
+import { apiService } from '@/services/apiServices';
+import MedianSalesChart from '@/components/charts/MedianSalesChart';
+import SalesVolume from '@/components/charts/SalesVolume';
+import HistoricalTrend from '@/components/charts/HistoricalTrend';
+import DomTrend from '@/components/charts/DomTrend';
+import ActiveListing from '@/components/charts/ActiveListing';
+import WeeklyPending from '@/components/charts/WeeklyPending';
+import WeeklyPriceReduction from '@/components/charts/WeeklyPriceReduction';
+import BeroMetric from '@/components/charts/BeroMetric';
+import SalesListRatio from '@/components/charts/SalesListRatio';
+import MioChart from '@/components/charts/MioChart';
+import PriceSqftChart from '@/components/charts/PriceSqftChart';
+
+const Home = () => {
+  const [selectedLocation, setSelectedLocation] = useState<string>("Houston");
+  const [allLocations, setAllLocations] = useState<any>([]);
+
+  const [beroMetricData, setBeroMetricData] = useState<any>(null);
+
+  const [historicalTrendData, setHistoricalTrendData] = useState<any>(null);
+  const [historicalTrendDataLoading, setHistoricalTrendDataLoading] = useState<boolean>(false);
+
+  const [medianSalesChartData, setMedianSalesChartData] = useState<any>(null);
+  const [medianSalesChartDataLoading, setMedianSalesChartDataLoading] = useState<boolean>(false);
+
+  const [domTrendData, setDomTrendData] = useState<any>(null);
+  const [domTrendDataLoading, setDomTrendDataLoading] = useState<boolean>(false);
+
+  const [salesVolumeChartData, setSalesVolumeChartData] = useState<any>(null);
+  const [salesVolumeChartDataLoading, setSalesVolumeChartDataLoading] = useState<boolean>(false);
+
+  const [activeListingData, setActiveListingData] = useState<any>(null);
+  const [activeListingDataLoading, setActiveListingDataLoading] = useState<boolean>(false);
+
+  const [weeklyPendingData, setWeeklyPendingData] = useState<any>(null);
+  const [weeklyPendingDataLoading, setWeeklyPendingDataLoading] = useState<boolean>(false);
+
+  const [weeklyPriceReductionData, setWeeklyPriceReductionData] = useState<any>(null);
+  const [weeklyPriceReductionDataLoading, setWeeklyPriceReductionDataLoading] = useState<boolean>(false);
+
+  const [salesListRatioData, setSalesListRatioData] = useState<any>(null);
+  const [salesListRatioDataLoading, setSalesListRatioDataLoading] = useState<boolean>(false);
+
+  const [moiData, setMoiData] = useState<any>(null);
+  const [moiDataLoading, setMoiDataLoading] = useState<boolean>(false);
+
+  const [priceSQFTData, setPriceSQFTData] = useState<any>(null);
+  const [priceSQFTDataLoading, setPriceSQFTDataLoading] = useState<boolean>(false);
+
+
+  useEffect(() => {
+    getAllLocationsHandler()
+    getBeroMetricDataHandler();
+    getHistoricalTrendDataHandler();
+    getMedianSalesDataHandler();
+    getDomTrendDataHandler();
+    getSalesVolumeDataHandler();
+    getActiveListingDataHandler();
+    getWeeklyPendingDataHandler();
+    getWeeklyPriceReductionDataHandler();
+    getSalesListRatioDataHandler();
+    getMoiDataHandler();
+    getPriceSQFTDataHandler();
+  }, [selectedLocation]);
+
+
+  const getAllLocationsHandler = async () => {
+    const response = await apiService.getAllLocations()
+    if (response.success) {
+      setAllLocations(response.data?.locations)
+    }
+  }
+
+  const getBeroMetricDataHandler = async () => {
+    const data = {
+      "matched_by": "city",
+      "ActiveListings": 6389,
+      "NewListings": 7113,
+      "PendingSales": 582,
+      "ClosedSales": 142,
+      "BarometerIndex": 0.05
+    }
+
+    setBeroMetricData(data)
+  }
+
+
+  const getHistoricalTrendDataHandler = async () => {
+    setHistoricalTrendDataLoading(true)
+    const response = await apiService.getChartData(`historical-trend-11?city=${selectedLocation}`)
+    if (response.success) {
+      setHistoricalTrendData(response.data)
+    }else {
+      setHistoricalTrendData(null)
+    }
+    setHistoricalTrendDataLoading(false)
+  }
+
+  const getMedianSalesDataHandler = async () => {
+    setMedianSalesChartDataLoading(true)
+    const response = await apiService.getChartData(`median-sales-1?city=${selectedLocation}`)
+    if (response.success) {
+      setMedianSalesChartData(response.data)
+    }
+    else {
+      setMedianSalesChartData(null)
+    }
+    setMedianSalesChartDataLoading(false)
+  }
+
+  const getDomTrendDataHandler = async () => {
+    setDomTrendDataLoading(true)
+    const response = await apiService.getChartData(`dom-trend-2?city=${selectedLocation}`)
+    if (response.success) {
+      setDomTrendData(response.data)
+    }else {
+      setDomTrendData(null)
+    }
+    setDomTrendDataLoading(false)
+  }
+
+  const getSalesVolumeDataHandler = async () => {
+    setSalesVolumeChartDataLoading(true)
+    const response = await apiService.getChartData(`sales-volume-3?city=${selectedLocation}`)
+    if (response.success) {
+      setSalesVolumeChartData(response.data)
+    }else {
+      setSalesVolumeChartData(null)
+    }
+    setSalesVolumeChartDataLoading(false)
+  }
+
+  const getActiveListingDataHandler = async () => {
+    setActiveListingDataLoading(true)
+    const response = await apiService.getChartData(`get-active-listing-7?city=${selectedLocation}`)
+    if (response.success) {
+      setActiveListingData(response.data)
+    }else {
+      setActiveListingData(null)
+    }
+    setActiveListingDataLoading(false)
+  }
+
+  const getWeeklyPendingDataHandler = async () => {
+    setWeeklyPendingDataLoading(true)
+    const response = await apiService.getChartData(`weekly-pending-4?city=${selectedLocation}`)
+    if (response.success) {
+      setWeeklyPendingData(response.data)
+    }else {
+      setWeeklyPendingData(null)
+    }
+    setWeeklyPendingDataLoading(false)
+  }
+
+  const getWeeklyPriceReductionDataHandler = async () => {
+    setWeeklyPriceReductionDataLoading(true)
+    const response = await apiService.getChartData(`weekly-price-reductions-5?city=${selectedLocation}`)
+    if (response.success) {
+      setWeeklyPriceReductionData(response.data)
+    }else {
+      setWeeklyPriceReductionData(null)
+    }
+    setWeeklyPriceReductionDataLoading(false)
+  }
+
+  const getSalesListRatioDataHandler = async () => {
+    setSalesListRatioDataLoading(true)
+    const response = await apiService.getChartData(`sale-list-ratio-8?city=${selectedLocation}`)
+    if (response.success) {
+      setSalesListRatioData(response.data)
+    }else {
+      setSalesListRatioData(null)
+    }
+    setSalesListRatioDataLoading(false)
+  }
+
+  const getMoiDataHandler = async () => {
+    setMoiDataLoading(true)
+    const response = await apiService.getChartData(`moi-6?city=${selectedLocation}`)
+    if (response.success) {
+      setMoiData(response.data)
+    }else {
+      setMoiData(null)
+    }
+    setMoiDataLoading(false)
+  }
+
+  const getPriceSQFTDataHandler = async () => {
+    setPriceSQFTDataLoading(true)
+    const response = await apiService.getChartData(`price-sqft-9?city=${selectedLocation}`)
+    if (response.success) {
+      setPriceSQFTData(response.data)
+    }else {
+      setPriceSQFTData(null)
+    }
+    setPriceSQFTDataLoading(false)
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Navigation */}
+      <Navbar />
+
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6">
+            Housing Market
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Visualization
+            </span>
+          </h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Explore the housing market with interactive charts and data visualizations
+          </p>
+        </div>
+
+        {/* Dropdown for city selection */}
+        <div className="flex justify-center mb-4">
+          <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+            <SelectTrigger className="w-[280px] bg-white/70 backdrop-blur-sm">
+              <SelectValue placeholder="Select a city" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Houston">Houston</SelectItem>
+              {allLocations.filter((location: string) => location !== "Houston").map((location: string) => (
+                <SelectItem key={location} value={location}>
+                  {location}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Median Sales and Sales Volume Charts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+          <BeroMetric data={beroMetricData} />
+          <HistoricalTrend data={historicalTrendData} loading={historicalTrendDataLoading} />
+          <MedianSalesChart data={medianSalesChartData} loading={medianSalesChartDataLoading} />
+          <DomTrend data={domTrendData} loading={domTrendDataLoading} />
+          <SalesVolume data={salesVolumeChartData} loading={salesVolumeChartDataLoading} />   
+          <ActiveListing data={activeListingData} loading={activeListingDataLoading} />
+          <WeeklyPending data={weeklyPendingData} loading={weeklyPendingDataLoading} />
+          <WeeklyPriceReduction data={weeklyPriceReductionData} loading={weeklyPriceReductionDataLoading} />
+          <SalesListRatio data={salesListRatioData} loading={salesListRatioDataLoading} />
+          <MioChart data={moiData} loading={moiDataLoading} />
+          <PriceSqftChart data={priceSQFTData} loading={priceSQFTDataLoading} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

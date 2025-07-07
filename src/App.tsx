@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Tables from "./pages/Tables";
 import NotFound from "./pages/NotFound";
+import Charts from "./pages/Charts";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/charts" element={<Charts />} />
           <Route path="/tables" element={<Tables />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

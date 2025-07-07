@@ -11,11 +11,12 @@ import {
 
 interface MedianSalesChartProps {
   data: any
+  loading: boolean
 }
 
 const lineColors = ['#8884d8', '#82ca9d', '#ffc658', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
 
-const MedianSalesChart: React.FC<MedianSalesChartProps> = ({ data }) => {
+const MedianSalesChart: React.FC<MedianSalesChartProps> = ({ data, loading }) => {
   const [medianSalesChartData, setMedianSalesChartData] = useState<any>(null);
   const [years, setYears] = useState<string[]>([]);
 
@@ -50,7 +51,13 @@ const MedianSalesChart: React.FC<MedianSalesChartProps> = ({ data }) => {
       <h3 className="text-slate-800 text-lg font-semibold">Median Sales Price</h3>
       <p className="text-slate-600 text-sm mb-4">Median home sales price by year</p>
       <ResponsiveContainer width="100%" height={400}>
-        {medianSalesChartData && medianSalesChartData.length > 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          </div>
+        ) : medianSalesChartData && medianSalesChartData.length > 0 ? (
           <LineChart data={medianSalesChartData}  margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
             <XAxis dataKey="month" stroke="#64748b" />
@@ -71,7 +78,7 @@ const MedianSalesChart: React.FC<MedianSalesChartProps> = ({ data }) => {
           </LineChart>
         ) : (
           <div className="flex items-center justify-center h-full">
-            <p className="text-slate-500">Select a city to view median sales data.</p>
+            <p className="text-slate-500">No data available for the selected location.</p>
           </div>
         )}
       </ResponsiveContainer>

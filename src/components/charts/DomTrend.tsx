@@ -12,9 +12,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 
 interface DomTrendProps {
   data: any
+  loading: boolean
 }
 
-const DomTrend: React.FC<DomTrendProps> = ({ data }) => {
+const DomTrend: React.FC<DomTrendProps> = ({ data, loading }) => {
   const [domTrendData, setDomTrendData] = useState<any[]>([]);
   const [years, setYears] = useState<string[]>([]);
   const [selectedYear, setSelectedYear] = useState<string>('all');
@@ -109,48 +110,60 @@ const DomTrend: React.FC<DomTrendProps> = ({ data }) => {
       </div>
 
       <ResponsiveContainer width="100%" height={350}>
-        <AreaChart data={filteredData} margin={{ top: 20, right: 40, left: 20, bottom: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis 
-            dataKey="monthName" 
-            stroke="#64748b"
-            angle={-45}
-            textAnchor="end"
-            height={80}
-          />
-          <YAxis 
-            stroke={metricConfig.color}
-            label={{ 
-              value: metricConfig.yAxisLabel, 
-              angle: -90, 
-              position: 'insideLeft',
-              style: { textAnchor: 'middle', fill: metricConfig.color }
-            }}
-          />
-          <Tooltip 
-            contentStyle={{ 
-              background: 'rgba(255, 255, 255, 0.95)', 
-              border: 'none', 
-              borderRadius: '8px',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-            }}
-            formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-            labelFormatter={(label) => `Month: ${label}`}
-          />
-          <Area 
-            type="monotone" 
-            dataKey={selectedMetric} 
-            stroke={metricConfig.color} 
-            fill={`url(#color${selectedMetric})`} 
-            strokeWidth={2}
-          />
-          <defs>
-            <linearGradient id={`color${selectedMetric}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={metricConfig.color} stopOpacity={0.3}/>
-              <stop offset="95%" stopColor={metricConfig.color} stopOpacity={0}/>
-            </linearGradient>
-          </defs>
-        </AreaChart>
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          </div>
+        ) : filteredData && filteredData.length > 0 ? (
+          <AreaChart data={filteredData} margin={{ top: 20, right: 40, left: 20, bottom: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <XAxis 
+              dataKey="monthName" 
+              stroke="#64748b"
+              angle={-45}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis 
+              stroke={metricConfig.color}
+              label={{ 
+                value: metricConfig.yAxisLabel, 
+                angle: -90, 
+                position: 'insideLeft',
+                style: { textAnchor: 'middle', fill: metricConfig.color }
+              }}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                background: 'rgba(255, 255, 255, 0.95)', 
+                border: 'none', 
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+              }}
+              formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
+              labelFormatter={(label) => `Month: ${label}`}
+            />
+            <Area 
+              type="monotone" 
+              dataKey={selectedMetric} 
+              stroke={metricConfig.color} 
+              fill={`url(#color${selectedMetric})`} 
+              strokeWidth={2}
+            />
+            <defs>
+              <linearGradient id={`color${selectedMetric}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={metricConfig.color} stopOpacity={0.3}/>
+                <stop offset="95%" stopColor={metricConfig.color} stopOpacity={0}/>
+              </linearGradient>
+            </defs>
+          </AreaChart>
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-slate-500">No data available for the selected location.</p>
+          </div>
+        )}
       </ResponsiveContainer>
 
       {/* Market Insights */}

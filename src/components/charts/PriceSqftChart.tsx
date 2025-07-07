@@ -3,97 +3,71 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Button } from '../ui/button';
 
-interface HistoricalTrendProps {
-  data: any
+interface PriceSqftChartProps {
+  data: any, 
   loading: boolean
 }
 
-const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
-  const [historicalTrendData, setHistoricalTrendData] = useState<any>(null);
-  const [years, setYears] = useState<string[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>('all');
-  const [selectedMetric, setSelectedMetric] = useState<string>('sales');
-  const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
+const PriceSqftChart: React.FC<PriceSqftChartProps> = ({ data, loading }) => {
+  const [priceSQFTData, setPriceSQFTData] = useState<any[]>([])
+  const [selectedYear, setSelectedYear] = useState<string>('all')
+  const [selectedMetric, setSelectedMetric] = useState<string>('MedianPPSF')
+  const [chartType, setChartType] = useState<'bar' | 'line'>('line')
 
   useEffect(() => {
-    if (!data) return;
+    setPriceSQFTData(data || [])
+  }, [data])
 
-    const combinedData = [...(Array.isArray(data) ? data : [])];
-    
-    const uniqueYears = [...new Set(combinedData.map(item => item.year))].sort();
-    setYears(uniqueYears.map(year => year.toString()));
-    
-    setHistoricalTrendData(combinedData);
-  }, [data]);
+  // Get unique years from data with null check
+  const years = [...new Set((priceSQFTData || []).map(item => item.Year))].sort()
 
-  // Filter data by selected year
-  const filteredData = historicalTrendData?.filter((item: any) => {
-    if (selectedYear === 'all') return true;
-    return item.year.toString() === selectedYear;
-  }) || [];
+  // Filter data based on selected year with null check
+  const filteredData = selectedYear === 'all' 
+    ? (priceSQFTData || [])
+    : (priceSQFTData || []).filter(item => item.Year === parseInt(selectedYear))
 
-  // Process data for chart display
-  const chartData = filteredData.map((item: any) => ({
-    month: new Date(item.month).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
-    sales: item.sales_volume,
-    revenue: Math.round(item.sales_volume * item.avg_price),
-    avg_price: Math.round(item.avg_price),
-    median_price: Math.round(item.median_price),
-    avg_ppsf: Math.round(item.avg_ppsf * 100) / 100,
-    avg_dom: Math.round(item.avg_dom * 10) / 10
-  }));
+  // Format data for chart
+  const chartData = filteredData.map(item => ({
+    month: `${item.Year}-${item.Month.toString().padStart(2, '0')}`,
+    MedianPPSF: item.MedianPPSF,
+    AveragePPSF: item.AveragePPSF,
+    year: item.Year,
+    monthNum: item.Month
+  })).sort((a, b) => a.year - b.year || a.monthNum - b.monthNum)
 
   // Get metric configuration
   const getMetricConfig = (metric: string) => {
     const configs = {
-      sales: {
-        label: 'Sales Volume',
+      MedianPPSF: {
+        label: 'Median Price per Sq Ft',
         color: '#3b82f6',
-        formatter: (value: number) => `${value.toLocaleString()} units`,
-        yAxisLabel: 'Sales Volume'
-      },
-      revenue: {
-        label: 'Revenue',
-        color: '#8b5cf6',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Revenue ($)'
-      },
-      avg_price: {
-        label: 'Average Price',
-        color: '#10b981',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Average Price ($)'
-      },
-      median_price: {
-        label: 'Median Price',
-        color: '#f59e0b',
-        formatter: (value: number) => `$${value.toLocaleString()}`,
-        yAxisLabel: 'Median Price ($)'
-      },
-      avg_ppsf: {
-        label: 'Avg Price per Sq Ft',
-        color: '#ef4444',
-        formatter: (value: number) => `$${value}`,
+        formatter: (value: number) => `$${value.toFixed(2)}`,
         yAxisLabel: 'Price per Sq Ft ($)'
       },
-      avg_dom: {
-        label: 'Avg Days on Market',
-        color: '#8b5cf6',
-        formatter: (value: number) => `${value} days`,
-        yAxisLabel: 'Days on Market'
+      AveragePPSF: {
+        label: 'Average Price per Sq Ft',
+        color: '#10b981',
+        formatter: (value: number) => `$${value.toFixed(2)}`,
+        yAxisLabel: 'Price per Sq Ft ($)'
       }
     };
-    return configs[metric as keyof typeof configs] || configs.sales;
+    return configs[metric as keyof typeof configs] || configs.MedianPPSF;
   };
 
   const metricConfig = getMetricConfig(selectedMetric);
+
+  // Calculate summary stats with null checks
+  const currentValue = chartData.length > 0 ? chartData[chartData.length - 1][selectedMetric as keyof typeof chartData[0]] : 0
+  const avgValue = chartData.length > 0 ? chartData.reduce((sum, item) => sum + item[selectedMetric as keyof typeof item], 0) / chartData.length : 0
+  const maxValue = chartData.length > 0 ? Math.max(...chartData.map(item => item[selectedMetric as keyof typeof item])) : 0
+  const minValue = chartData.length > 0 ? Math.min(...chartData.map(item => item[selectedMetric as keyof typeof item])) : 0
 
   return (
     <div className="lg:col-span-2 bg-white/70 backdrop-blur-sm border-white/20 rounded-lg p-6 hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
         <div>
-          <h3 className="text-slate-800 text-lg font-semibold">Historical Trend</h3>
-          <p className="text-slate-600 text-sm">Monthly performance metrics</p>
+          <h3 className="text-slate-800 text-lg font-semibold">Price per Square Foot</h3>
+          <p className="text-slate-600 text-sm">Median and average price per square foot over time</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
@@ -105,14 +79,14 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
                 {years.map((year) => (
-                  <SelectItem key={year} value={year}>
+                  <SelectItem key={year} value={year.toString()}>
                     {year}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <label className="text-sm text-slate-600">Metric:</label>
             <Select value={selectedMetric} onValueChange={setSelectedMetric}>
@@ -120,12 +94,8 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
                 <SelectValue placeholder="Select metric" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="sales">Sales Volume</SelectItem>
-                <SelectItem value="revenue">Revenue</SelectItem>
-                <SelectItem value="avg_price">Average Price</SelectItem>
-                <SelectItem value="median_price">Median Price</SelectItem>
-                <SelectItem value="avg_ppsf">Avg Price per Sq Ft</SelectItem>
-                <SelectItem value="avg_dom">Avg Days on Market</SelectItem>
+                <SelectItem value="MedianPPSF">Median PPSF</SelectItem>
+                <SelectItem value="AveragePPSF">Average PPSF</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -186,7 +156,7 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                 }}
                 formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-                labelFormatter={(label) => `Month: ${label}`}
+                labelFormatter={(label) => `Period: ${label}`}
               />
               <Bar 
                 dataKey={selectedMetric} 
@@ -222,7 +192,7 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                 }}
                 formatter={(value: any) => [metricConfig.formatter(value), metricConfig.label]}
-                labelFormatter={(label) => `Month: ${label}`}
+                labelFormatter={(label) => `Period: ${label}`}
               />
               <Line 
                 type="monotone"
@@ -246,27 +216,27 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
       {chartData.length > 0 && (
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-blue-50 p-3 rounded-lg">
-            <div className="text-sm text-blue-600 font-medium">Total Sales</div>
+            <div className="text-sm text-blue-600 font-medium">Current</div>
             <div className="text-lg font-bold text-blue-800">
-              {chartData.reduce((sum, item) => sum + item.sales, 0).toLocaleString()}
+              {metricConfig.formatter(currentValue)}
             </div>
           </div>
           <div className="bg-purple-50 p-3 rounded-lg">
-            <div className="text-sm text-purple-600 font-medium">Total Revenue</div>
+            <div className="text-sm text-purple-600 font-medium">Average</div>
             <div className="text-lg font-bold text-purple-800">
-              ${chartData.reduce((sum, item) => sum + item.revenue, 0).toLocaleString()}
+              {metricConfig.formatter(avgValue)}
             </div>
           </div>
           <div className="bg-green-50 p-3 rounded-lg">
-            <div className="text-sm text-green-600 font-medium">Avg Price</div>
+            <div className="text-sm text-green-600 font-medium">Highest</div>
             <div className="text-lg font-bold text-green-800">
-              ${Math.round(chartData.reduce((sum, item) => sum + item.avg_price, 0) / chartData.length).toLocaleString()}
+              {metricConfig.formatter(maxValue)}
             </div>
           </div>
           <div className="bg-orange-50 p-3 rounded-lg">
-            <div className="text-sm text-orange-600 font-medium">Avg Days on Market</div>
+            <div className="text-sm text-orange-600 font-medium">Lowest</div>
             <div className="text-lg font-bold text-orange-800">
-              {Math.round(chartData.reduce((sum, item) => sum + item.avg_dom, 0) / chartData.length)}
+              {metricConfig.formatter(minValue)}
             </div>
           </div>
         </div>
@@ -275,4 +245,4 @@ const HistoricalTrend: React.FC<HistoricalTrendProps> = ({ data, loading }) => {
   )
 }
 
-export default HistoricalTrend
+export default PriceSqftChart

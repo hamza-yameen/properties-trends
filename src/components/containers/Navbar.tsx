@@ -7,14 +7,16 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Data Visualization
-              </h1>
+              <Link to="/">
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Data Visualization
+                </h1>
+              </Link>
             </div>
             <div className="flex space-x-4">
-              <Link to="/">
+              <Link to="/charts">
                 <Button variant="ghost" className="text-slate-700 hover:text-blue-600 transition-colors">
-                  Home
+                  Charts
                 </Button>
               </Link>
               <Link to="/tables">

@@ -31,13 +31,26 @@ export class ApiService {
     });
   }
 
-  async getMedianSales(city: string): Promise<ApiResponse<any>> {
+  async getAllLocations(): Promise<ApiResponse<any>> {
     return await this.callApi<any>(
       'GET',
-      `median-sales-1?city=${city}`
+      'ALL-Cities'
+    );
+  }
+
+  async getChartData(url: string): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'GET',
+      url
+    );
+  }
+
+  async getTableData(city: string, year: string, month: string): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'GET',
+      `get-tables?city=${city}&year=${year}&month=${month}`
     );
   }
 }
 
 export const apiService = new ApiService();
-export const getMedianSales = apiService.getMedianSales.bind(apiService);

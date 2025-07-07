@@ -20,9 +20,10 @@ interface CondoData {
 
 interface CondoProps {
   data: CondoData[]
+  loading?: boolean
 }
 
-const Condo = ({ data }: CondoProps) => {
+const  Condo = ({ data, loading = false }: CondoProps) => {
   const [condoData, setCondoData] = useState(data)
 
   useEffect(() => {
@@ -121,68 +122,84 @@ const Condo = ({ data }: CondoProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
-          <div className="max-h-[600px] overflow-y-auto border border-slate-200 rounded-lg">
-            <Table>
-              <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-                <TableRow className="border-slate-200">
-                  <TableHead className="font-semibold text-slate-700">Price Range</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Pending/Signed</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Price Adjustments</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Sold & Closed</TableHead>
-                  <TableHead className="font-semibold text-slate-700">New Listings</TableHead>
-                  <TableHead className="font-semibold text-slate-700">DOM</TableHead>
-                  <TableHead className="font-semibold text-slate-700">List to Close +/-</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Total Actives</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Monthly Change</TableHead>
-                  <TableHead className="font-semibold text-slate-700">3-Month Change</TableHead>
-                  <TableHead className="font-semibold text-slate-700">Trend</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {condoData.map((item, index) => (
-                  <TableRow key={index} className="hover:bg-white/50 transition-colors duration-200">
-                    <TableCell className="font-medium text-slate-800">
-                      {item.pricerange}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["Pending/ Signed Contract"] !== null ? item["Pending/ Signed Contract"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["Price Adjustments"] !== null ? item["Price Adjustments"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["Sold and Closed"] !== null ? item["Sold and Closed"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["New Listings"] !== null ? item["New Listings"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["DOM"] !== null ? item["DOM"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["List to Close +/-"] !== null ? item["List to Close +/-"] : '-'}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["Total Actives"] !== null ? item["Total Actives"] : '-'}
-                    </TableCell>
-                    <TableCell className={getChangeColor(item["Change from Last Month"])}>
-                      {item["Change from Last Month"]}
-                    </TableCell>
-                    <TableCell className="text-slate-700">
-                      {item["Previous 3 Months Change"] !== null ? item["Previous 3 Months Change"] : '-'}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center">
-                        {getTrendingIcon(item["Trending < >"])}
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+        {loading ? (
+          <div className="flex items-center justify-center h-96">
+            <div className="flex flex-col items-center gap-4">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-purple-600"></div>
+              <p className="text-slate-600 font-medium">Loading condo market data...</p>
+            </div>
           </div>
-        </div>
+        ) : condoData && condoData.length > 0 ? (
+          <div className="overflow-x-auto">
+            <div className="max-h-[600px] overflow-y-auto border border-slate-200 rounded-lg">
+              <Table>
+                <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+                  <TableRow className="border-slate-200">
+                    <TableHead className="font-semibold text-slate-700">Price Range</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Pending/Signed</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Price Adjustments</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Sold & Closed</TableHead>
+                    <TableHead className="font-semibold text-slate-700">New Listings</TableHead>
+                    <TableHead className="font-semibold text-slate-700">DOM</TableHead>
+                    <TableHead className="font-semibold text-slate-700">List to Close +/-</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Total Actives</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Monthly Change</TableHead>
+                    <TableHead className="font-semibold text-slate-700">3-Month Change</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Trend</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {condoData.map((item, index) => (
+                    <TableRow key={index} className="hover:bg-white/50 transition-colors duration-200">
+                      <TableCell className="font-medium text-slate-800">
+                        {item.pricerange}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["Pending/ Signed Contract"] !== null ? item["Pending/ Signed Contract"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["Price Adjustments"] !== null ? item["Price Adjustments"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["Sold and Closed"] !== null ? item["Sold and Closed"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["New Listings"] !== null ? item["New Listings"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["DOM"] !== null ? item["DOM"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["List to Close +/-"] !== null ? item["List to Close +/-"] : '-'}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["Total Actives"] !== null ? item["Total Actives"] : '-'}
+                      </TableCell>
+                      <TableCell className={getChangeColor(item["Change from Last Month"])}>
+                        {item["Change from Last Month"]}
+                      </TableCell>
+                      <TableCell className="text-slate-700">
+                        {item["Previous 3 Months Change"] !== null ? item["Previous 3 Months Change"] : '-'}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center">
+                          {getTrendingIcon(item["Trending < >"])}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-96">
+            <div className="text-center">
+              <p className="text-slate-500 text-lg">No condo market data available</p>
+              <p className="text-slate-400 text-sm mt-2">Try selecting different filters</p>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   )
