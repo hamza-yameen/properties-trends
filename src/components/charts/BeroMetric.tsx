@@ -149,10 +149,10 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
                     className="transition-all duration-1000 ease-out"
                   />
                   {/* Center text */}
-                  <text x="50" y="45" textAnchor="middle" className="text-2xl font-bold fill-slate-700">
+                  <text x="60" y="30" textAnchor="middle" className="text-2xl font-bold fill-slate-700" transform="rotate(90 50 40)">
                     {percentage}%
                   </text>
-                  <text x="50" y="60" textAnchor="middle" className="text-xs fill-slate-500">
+                  <text x="40" y="80" textAnchor="middle" className="text-xs fill-slate-500" transform="rotate(90 50 62)">
                     Index
                   </text>
                 </svg>

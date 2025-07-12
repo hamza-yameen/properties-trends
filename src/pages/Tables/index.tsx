@@ -9,9 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 const Tables = () => {
   const [sfData, setSFData] = useState([])
   const [contraData, setContraData] = useState([])
-  const [city, setCity] = useState("Houston")
+  const [city, setCity] = useState("Bellaire Area")
   const [year, setYear] = useState("2024")
-  const [month, setMonth] = useState("1")
+  const [month, setMonth] = useState("4")
   const [loading, setLoading] = useState(false)
   const [allLocations, setAllLocations] = useState([])
 

@@ -21,7 +21,7 @@ import MioChart from '@/components/charts/MioChart';
 import PriceSqftChart from '@/components/charts/PriceSqftChart';
 
 const Home = () => {
-  const [selectedLocation, setSelectedLocation] = useState<string>("Houston");
+  const [selectedLocation, setSelectedLocation] = useState<string>("Bellaire Area");
   const [allLocations, setAllLocations] = useState<any>([]);
 
   const [beroMetricData, setBeroMetricData] = useState<any>(null);

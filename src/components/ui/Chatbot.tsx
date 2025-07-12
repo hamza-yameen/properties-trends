@@ -198,7 +198,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen: controlledIsOpen, onToggle })
                         ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-br-sm'
                         : 'bg-white/80 backdrop-blur-sm text-slate-800 rounded-bl-sm border border-white/20'
                     }`}>
-                      <p className="text-sm whitespace-pre-line">{message.text}</p>
+                      <div 
+                        className="text-sm whitespace-pre-line"
+                        dangerouslySetInnerHTML={{ __html: message.text }}
+                      />
                       <p className={`text-xs mt-1 ${message.isUser ? 'text-purple-100' : 'text-slate-500'}`}>
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
