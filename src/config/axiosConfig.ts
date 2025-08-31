@@ -9,7 +9,7 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 
 // Create axios instance with default configuration
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://52.33.146.101/",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://52.33.146.101/backend/",
   headers: {
     'Content-Type': 'application/json',
   },

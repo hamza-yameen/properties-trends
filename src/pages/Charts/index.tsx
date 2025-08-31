@@ -19,6 +19,7 @@ import BeroMetric from '@/components/charts/BeroMetric';
 import SalesListRatio from '@/components/charts/SalesListRatio';
 import MioChart from '@/components/charts/MioChart';
 import PriceSqftChart from '@/components/charts/PriceSqftChart';
+import { Particles } from '@/components/ui/particles';
 
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("Bellaire Area");
@@ -205,12 +206,24 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen relative bg-[#F2F1EF]">
+      {/* Particles Background */}
+      <Particles
+        className="fixed inset-0 z-0"
+        quantity={50}
+        staticity={30}
+        ease={50}
+        size={0.8}
+        color="#3b82f6"
+        vx={0.1}
+        vy={0.1}
+      />
+      
       {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6">
             Housing Market
@@ -226,7 +239,7 @@ const Home = () => {
         {/* Dropdown for city selection */}
         <div className="flex justify-center mb-4">
           <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-            <SelectTrigger className="w-[280px] bg-white/70 backdrop-blur-sm">
+            <SelectTrigger className="w-[280px] bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg">
               <SelectValue placeholder="Select a city" />
             </SelectTrigger>
             <SelectContent>

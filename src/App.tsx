@@ -5,7 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Tables from "./pages/Tables";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import Charts from "./pages/Charts";
 import Chatbot from "@/components/ui/Chatbot";
@@ -21,7 +22,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/charts" element={<Charts />} />
-          <Route path="/tables" element={<Tables />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Chatbot />
