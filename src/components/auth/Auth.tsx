@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { apiService } from '@/services/apiServices';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context';
+import { useNavigate } from 'react-router-dom';
+
 
 interface AuthProps {
   mode?: 'signup' | 'signin';
@@ -21,6 +26,9 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
   const [fullName, setFullName] = useState('');
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const validateForm = (): boolean => {
     const newErrors: ValidationErrors = {};
@@ -61,31 +69,59 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
     if (validateForm()) {
       setIsLoading(true);
       
-      try {
-        if (isSignup) {
-          // signup logic
-          console.log(`${mode} attempt:`, { fullName, email, password });
-          // Here you would typically call your signup API
-          // await signupUser({ fullName, email, password });
+      if (isSignup) {
+        const response = await apiService.signup({ fullName, email, password });
+
+        if (response.success) {
+          toast({
+            title: "Account Created Successfully. Visit your email to verify your account.",
+            description: "Welcome! Your account has been created successfully.",
+            variant: "default",
+          });
         } else {
-          // signin logic
-          console.log(`${mode} attempt:`, { email, password });
-          // Here you would typically call your signin API
-          // await signinUser({ email, password });
+          toast({
+            title: "Signup Failed",
+            description: response.message || "An error occurred during signup. Please try again.",
+            variant: "destructive",
+          });
         }
-        
-        // Reset form after successful submission
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setFullName('');
-        setErrors({});
-      } catch (error) {
-        console.error('Authentication error:', error);
-        // Handle error (show error message to user)
-      } finally {
-        setIsLoading(false);
+      } else {        
+        const response = await apiService.signin({ email, password });
+        if (response.success) {
+          const { access_token, user } = response.data;
+          
+            if (access_token && user) {
+              login(access_token, user);
+              
+              toast({
+                title: "Welcome Back!",
+                description: "You have successfully signed in.",
+                variant: "default",
+              });
+              
+              navigate('/charts');
+            } else {
+            toast({
+              title: "Sign In Failed",
+              description: "Invalid response format. Please try again.",
+              variant: "destructive",
+            });
+          }
+        } else {
+          toast({
+            title: "Sign In Failed",
+            description: response.message || "Invalid email or password. Please try again.",
+            variant: "destructive",
+          });
+        }
       }
+        
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setFullName('');
+      setErrors({});
+      setIsLoading(false);
     }
   };
 
@@ -106,7 +142,11 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
       }
     } catch (error) {
       console.error('Google authentication error:', error);
-      // Handle error (show error message to user)
+      toast({
+        title: "Google Authentication Error",
+        description: "An error occurred during Google authentication. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

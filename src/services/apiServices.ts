@@ -58,6 +58,33 @@ export class ApiService {
       `Chat-bot?query=${query}`
     );
   }
+
+  async signup(data: any): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'POST',
+      'auth/signup',
+      {
+        "user_full_name": data.fullName,
+        "user_email": data.email,
+        "user_password": data.password
+      }
+    );
+  }
+
+  async signin(data: any): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'POST',
+      'auth/signin',
+      data
+    );
+  }
+
+  async activateAccount(token: any): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'GET',
+      `auth/activate?token=${token}`,
+    );
+  }
 }
 
 export const apiService = new ApiService();

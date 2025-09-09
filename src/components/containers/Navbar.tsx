@@ -1,12 +1,14 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { MenuBar } from '../ui/glow-menu'
-import { BarChart3, Table, UserPlus, LogIn, Home } from 'lucide-react'
+import { BarChart3, Table, UserPlus, LogIn, Home, LogOut } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { useAuth } from '@/context'
 
 const Navbar: React.FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [activeItem, setActiveItem] = useState<string>("Home")
+  const { isAuthenticated, logout } = useAuth()
 
   // Update active item based on current route
   useEffect(() => {
@@ -26,34 +28,53 @@ const Navbar: React.FC = () => {
       gradient: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
       iconColor: "text-blue-500",
     },
-    {
-      icon: BarChart3,
-      label: "Charts",
-      href: "/charts",
-      gradient: "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
-      iconColor: "text-green-500",
-    },
-    {
-      icon: UserPlus,
-      label: "Signup",
-      href: "/signup",
-      gradient: "radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(147,51,234,0.06) 50%, rgba(126,34,206,0) 100%)",
-      iconColor: "text-purple-500",
-    },
-    {
-      icon: LogIn,
-      label: "Login",
-      href: "/login",
-      gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
-      iconColor: "text-red-500",
-    },
+    ...(isAuthenticated ? [] : [
+      {
+        icon: UserPlus,
+        label: "Signup",
+        href: "/signup",
+        gradient: "radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(147,51,234,0.06) 50%, rgba(126,34,206,0) 100%)",
+        iconColor: "text-purple-500",
+      },
+      {
+        icon: LogIn,
+        label: "Login",
+        href: "/login",
+        gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+        iconColor: "text-red-500",
+      },
+    ]),
+    ...(isAuthenticated ? [
+      {
+        icon: BarChart3,
+        label: "Charts",
+        href: "/charts",
+        gradient: "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
+        iconColor: "text-green-500",
+      },
+      {
+        icon: LogOut,
+        label: "Logout",
+        href: null, // No href for logout
+        gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+        iconColor: "text-red-500",
+        isLogout: true, // Flag to identify logout action
+      },
+    ] : []),
   ]
 
   const handleItemClick = (label: string) => {
     setActiveItem(label)
     const item = menuItems.find(item => item.label === label)
     if (item) {
-      navigate(item.href)
+      if (item.isLogout) {
+        // Handle logout
+        logout()
+        navigate('/')
+      } else if (item.href) {
+        // Handle navigation
+        navigate(item.href)
+      }
     }
   }
 

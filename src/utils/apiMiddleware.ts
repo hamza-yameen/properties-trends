@@ -53,25 +53,25 @@ export default class ApiUtil {
   }
 
   // Convenience methods for common HTTP operations
-  static async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.sendAsync<T>({ method: 'GET', url, ...config });
-  }
+  // static async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  //   return this.sendAsync<T>({ method: 'GET', url, ...config });
+  // }
 
-  static async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.sendAsync<T>({ method: 'POST', url, data, ...config });
-  }
+  // static async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  //   return this.sendAsync<T>({ method: 'POST', url, data, ...config });
+  // }
 
-  static async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.sendAsync<T>({ method: 'PUT', url, data, ...config });
-  }
+  // static async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  //   return this.sendAsync<T>({ method: 'PUT', url, data, ...config });
+  // }
 
-  static async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.sendAsync<T>({ method: 'PATCH', url, data, ...config });
-  }
+  // static async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  //   return this.sendAsync<T>({ method: 'PATCH', url, data, ...config });
+  // }
 
-  static async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return this.sendAsync<T>({ method: 'DELETE', url, ...config });
-  }
+  // static async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  //   return this.sendAsync<T>({ method: 'DELETE', url, ...config });
+  // }
 
   // Legacy method for backward compatibility
   static async SendAsync<T = any>(requestObject: AxiosRequestConfig): Promise<ApiResponse<T>> {

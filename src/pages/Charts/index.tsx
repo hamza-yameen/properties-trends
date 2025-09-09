@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/select"
 import Navbar from "@/components/containers/Navbar";
 import { apiService } from '@/services/apiServices';
+import { useAuth } from '@/context';
 import MedianSalesChart from '@/components/charts/MedianSalesChart';
 import SalesVolume from '@/components/charts/SalesVolume';
 import HistoricalTrend from '@/components/charts/HistoricalTrend';
@@ -24,6 +26,8 @@ import { Particles } from '@/components/ui/particles';
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("Bellaire Area");
   const [allLocations, setAllLocations] = useState<any>([]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const [beroMetricData, setBeroMetricData] = useState<any>(null);
   const [beroMetricDataLoading, setBeroMetricDataLoading] = useState<boolean>(false);
@@ -58,6 +62,12 @@ const Home = () => {
   const [priceSQFTData, setPriceSQFTData] = useState<any>(null);
   const [priceSQFTDataLoading, setPriceSQFTDataLoading] = useState<boolean>(false);
 
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
 
   useEffect(() => {
     getAllLocationsHandler()
