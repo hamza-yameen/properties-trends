@@ -109,7 +109,7 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
           <h3 className="text-slate-800 text-lg font-semibold">Market Barometer</h3>
           <p className="text-slate-600 text-sm">Real estate market health indicators</p>
         </div>
-        <Badge className={`${marketHealth.bgColor} ${marketHealth.textColor} border-0`}>
+        <Badge className="bg-gradient-to-r from-black via-gray-700 to-gray-500 text-white border-0 shadow-lg">
           {marketHealth.status}
         </Badge>
       </div>
@@ -177,17 +177,17 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
         <div className="lg:col-span-2">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Active Listings */}
-            <Card className="border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-black via-gray-800 to-gray-600 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-blue-600 font-medium">Active Listings</p>
-                    <p className="text-2xl font-bold text-blue-800">
+                    <p className="text-xs text-gray-300 font-medium">Active Listings</p>
+                    <p className="text-2xl font-bold text-white">
                       {marketData.ActiveListings.toLocaleString()}
                     </p>
                   </div>
-                  <div className="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
@@ -196,17 +196,17 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
             </Card>
 
             {/* New Listings */}
-            <Card className="border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-gray-900 via-gray-700 to-black hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-green-600 font-medium">New Listings</p>
-                    <p className="text-2xl font-bold text-green-800">
+                    <p className="text-xs text-gray-300 font-medium">New Listings</p>
+                    <p className="text-2xl font-bold text-white">
                       {marketData.NewListings.toLocaleString()}
                     </p>
                   </div>
-                  <div className="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                   </div>
@@ -215,17 +215,17 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
             </Card>
 
             {/* Pending Sales */}
-            <Card className="border-0 shadow-md bg-gradient-to-br from-orange-50 to-orange-100">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-black via-gray-600 to-gray-800 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-orange-600 font-medium">Pending Sales</p>
-                    <p className="text-2xl font-bold text-orange-800">
+                    <p className="text-xs text-gray-300 font-medium">Pending Sales</p>
+                    <p className="text-2xl font-bold text-white">
                       {marketData.PendingSales.toLocaleString()}
                     </p>
                   </div>
-                  <div className="w-8 h-8 bg-orange-200 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -234,17 +234,17 @@ const BeroMetric: React.FC<BeroMetricProps> = ({ data, loading }) => {
             </Card>
 
             {/* Closed Sales */}
-            <Card className="border-0 shadow-md bg-gradient-to-br from-purple-50 to-purple-100">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-gray-800 via-black to-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-purple-600 font-medium">Closed Sales</p>
-                    <p className="text-2xl font-bold text-purple-800">
+                    <p className="text-xs text-gray-300 font-medium">Closed Sales</p>
+                    <p className="text-2xl font-bold text-white">
                       {marketData.ClosedSales.toLocaleString()}
                     </p>
                   </div>
-                  <div className="w-8 h-8 bg-purple-200 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>

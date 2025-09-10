@@ -5,14 +5,14 @@ import Auth from '@/components/auth/Auth'
 import { useAuth } from '@/context'
 
 const SignUp = () => {
-  const { isAuthenticated } = useAuth()
+  const { getToken } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (getToken) {
       navigate('/charts')
     }
-  }, [isAuthenticated, navigate])
+  }, [navigate])
 
   return (
     <div>
