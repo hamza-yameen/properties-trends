@@ -26,7 +26,7 @@ import { Particles } from '@/components/ui/particles';
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("Bellaire Area");
   const [allLocations, setAllLocations] = useState<any>([]);
-  const { isAuthenticated } = useAuth();
+  const { getToken } = useAuth();
   const navigate = useNavigate();
 
   const [beroMetricData, setBeroMetricData] = useState<any>(null);
@@ -64,10 +64,10 @@ const Home = () => {
 
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!getToken()) {
       navigate('/')
     }
-  }, [isAuthenticated, navigate])
+  }, [navigate])
 
   useEffect(() => {
     getAllLocationsHandler()
@@ -237,7 +237,7 @@ const Home = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6">
             Housing Market
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               Visualization
             </span>
           </h2>
