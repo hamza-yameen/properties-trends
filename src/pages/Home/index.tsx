@@ -54,7 +54,7 @@ const Tables = () => {
           <div className="text-center mb-12 animate-fade-in z-10 relative">
             <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6 animate-scale-in">
               Housing Market
-              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-pulse">
+              <span className="block bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent animate-pulse">
                 Analytics Guide
               </span>
             </h2>
@@ -63,13 +63,13 @@ const Tables = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 z-10 relative">
-            <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in backdrop-blur-sm bg-opacity-90">
+            <Card className="text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in backdrop-blur-sm" style={{ backgroundColor: '#000000cc' }}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-blue-100 text-sm font-medium">Median Price</p>
+                    <p className="text-gray-300 text-sm font-medium">Median Price</p>
                     <p className="text-3xl font-bold">$485K</p>
-                    <p className="text-blue-200 text-xs">+5.2% YoY</p>
+                    <p className="text-gray-400 text-xs">+5.2% YoY</p>
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,19 +77,19 @@ const Tables = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-blue-100 text-xs leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed">
                   The middle value of all home prices sold in the market, providing a balanced view of market pricing trends.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-100 backdrop-blur-sm bg-opacity-90">
+            <Card className="text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-100 backdrop-blur-sm" style={{ backgroundColor: '#000000cc' }}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-purple-100 text-sm font-medium">Sales Volume</p>
+                    <p className="text-gray-300 text-sm font-medium">Sales Volume</p>
                     <p className="text-3xl font-bold">1,847</p>
-                    <p className="text-purple-200 text-xs">+12.3% MTM</p>
+                    <p className="text-gray-400 text-xs">+12.3% MTM</p>
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,19 +97,19 @@ const Tables = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-purple-100 text-xs leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed">
                   Total number of home sales completed, indicating market activity and buyer/seller engagement levels.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-indigo-500 to-indigo-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-200 backdrop-blur-sm bg-opacity-90">
+            <Card className="text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-200 backdrop-blur-sm" style={{ backgroundColor: '#000000cc' }}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-indigo-100 text-sm font-medium">Active Listings</p>
+                    <p className="text-gray-300 text-sm font-medium">Active Listings</p>
                     <p className="text-3xl font-bold">6,389</p>
-                    <p className="text-indigo-200 text-xs">-3.1% MTM</p>
+                    <p className="text-gray-400 text-xs">-3.1% MTM</p>
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,19 +117,19 @@ const Tables = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-indigo-100 text-xs leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed">
                   Properties currently available for purchase, reflecting supply levels and market inventory.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-300 backdrop-blur-sm bg-opacity-90">
+            <Card className="text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in delay-300 backdrop-blur-sm" style={{ backgroundColor: '#000000cc' }}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-cyan-100 text-sm font-medium">Market Index</p>
+                    <p className="text-gray-300 text-sm font-medium">Market Index</p>
                     <p className="text-3xl font-bold">75%</p>
-                    <p className="text-cyan-200 text-xs">Strong Market</p>
+                    <p className="text-gray-400 text-xs">Strong Market</p>
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ const Tables = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-cyan-100 text-xs leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed">
                   Combined indicator measuring overall market health, considering supply, demand, and pricing trends.
                 </p>
               </CardContent>
@@ -148,13 +148,13 @@ const Tables = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Filter Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 mb-12">
+        <div className="backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-[#000000cc] mb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* City Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700">City</label>
+              <label className="text-sm font-semibold text-[#000000]">City</label>
               <Select value={city} onValueChange={setCity}>
-                <SelectTrigger className="bg-white/70 border-purple-200 focus:border-purple-400 focus:ring-purple-400/20">
+                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
                   <SelectValue placeholder="Select a city" />
                 </SelectTrigger>
                 <SelectContent>
@@ -170,9 +170,9 @@ const Tables = () => {
 
             {/* Year Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700">Year</label>
+              <label className="text-sm font-semibold text-[#000000]">Year</label>
               <Select value={year} onValueChange={setYear}>
-                <SelectTrigger className="bg-white/70 border-purple-200 focus:border-purple-400 focus:ring-purple-400/20">
+                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
                   <SelectValue placeholder="Select year" />
                 </SelectTrigger>
                 <SelectContent>
@@ -188,9 +188,9 @@ const Tables = () => {
 
             {/* Month Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700">Month</label>
+              <label className="text-sm font-semibold text-[#000000]">Month</label>
               <Select value={month} onValueChange={setMonth}>
-                <SelectTrigger className="bg-white/70 border-purple-200 focus:border-purple-400 focus:ring-purple-400/20">
+                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
                   <SelectValue placeholder="Select month" />
                 </SelectTrigger>
                 <SelectContent>

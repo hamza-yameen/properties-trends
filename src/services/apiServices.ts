@@ -85,6 +85,13 @@ export class ApiService {
       `auth/activate?token=${token}`,
     );
   }
+
+  async getUsers(): Promise<ApiResponse<any>> {
+    return await this.callApi<any>(
+      'GET',
+      'users'
+    );
+  }
 }
 
 export const apiService = new ApiService();

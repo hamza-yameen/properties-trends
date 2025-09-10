@@ -13,7 +13,9 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   getToken: () => string | null;
+  getStoredUser: () => User | null;
   saveToken: (token: string) => void;
   removeToken: () => void;
   checkToken: () => boolean;
@@ -137,9 +139,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     token,
     isAuthenticated: !!user && !!token,
+    isAdmin: user?.role === 'admin',
     getToken,
     saveToken,
     removeToken,
+    getStoredUser,
     checkToken,
     login,
     logout,

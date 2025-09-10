@@ -26,6 +26,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
   const [fullName, setFullName] = useState('');
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { toast } = useToast();
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="mb-6">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
                 Data Visualization
               </h1>
             </div>
@@ -268,7 +269,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
             <Button 
               type="submit" 
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-gradient-to-r from-black via-gray-700 to-gray-500 hover:from-gray-800 hover:via-gray-600 hover:to-gray-400 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -292,11 +293,11 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
             <Button 
               variant="outline" 
               type="button"
-              disabled={isLoading}
+              disabled={isGoogleLoading}
               onClick={handleGoogleAuth}
               className="w-full border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? (
+              {isGoogleLoading ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-700 mr-2"></div>
                   {isSignup ? 'Signing up with Google...' : 'Signing in with Google...'}

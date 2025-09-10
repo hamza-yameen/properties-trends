@@ -111,7 +111,7 @@ const SF = ({ data, loading = false }: SFProps) => {
           <div className="flex items-center gap-3">
             <Button 
               size="sm" 
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all duration-200 rounded-lg px-4 py-2"
+              className="bg-gradient-to-r from-black via-gray-700 to-gray-500 hover:from-gray-800 hover:via-gray-600 hover:to-gray-400 text-white transition-all duration-200 rounded-lg px-4 py-2"
               onClick={exportToCSV}
             >
               <Download className="h-4 w-4 mr-2" />
