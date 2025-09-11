@@ -9,7 +9,7 @@ const SignUp = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (getToken) {
+    if (getToken()) {
       navigate('/charts')
     }
   }, [navigate])
