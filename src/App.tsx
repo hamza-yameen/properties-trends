@@ -2,32 +2,36 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context";
 import Home from "./pages/Home";
-import Tables from "./pages/Tables";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import Verify from "./pages/Verify";
 import NotFound from "./pages/NotFound";
 import Charts from "./pages/Charts";
 import Chatbot from "@/components/ui/Chatbot";
-
-const queryClient = new QueryClient();
+import Users from "./pages/Users";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/charts" element={<Charts />} />
-          <Route path="/tables" element={<Tables />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Chatbot />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/charts" element={<Charts />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/activate" element={<Verify />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+          <Chatbot />
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
 );
 
 export default App;

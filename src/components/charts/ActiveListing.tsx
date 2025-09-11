@@ -130,27 +130,27 @@ const ActiveListing: React.FC<ActiveListingProps> = ({ data, loading }) => {
       {/* Active Listings Insights */}
       {filteredData.length > 0 && (
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-green-50 p-3 rounded-lg">
-            <div className="text-sm text-green-600 font-medium">Total Active</div>
-            <div className="text-lg font-bold text-green-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Total Active</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {filteredData.reduce((sum, item) => sum + item.activeListings, 0).toLocaleString()}
             </div>
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <div className="text-sm text-blue-600 font-medium">Average Monthly</div>
-            <div className="text-lg font-bold text-blue-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Average Monthly</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {Math.round(filteredData.reduce((sum, item) => sum + item.activeListings, 0) / filteredData.length).toLocaleString()}
             </div>
           </div>
-          <div className="bg-purple-50 p-3 rounded-lg">
-            <div className="text-sm text-purple-600 font-medium">Peak Month</div>
-            <div className="text-lg font-bold text-purple-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Peak Month</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {Math.max(...filteredData.map(item => item.activeListings)).toLocaleString()}
             </div>
           </div>
-          <div className="bg-orange-50 p-3 rounded-lg">
-            <div className="text-sm text-orange-600 font-medium">Growth Rate</div>
-            <div className="text-lg font-bold text-orange-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Growth Rate</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {(() => {
                 if (filteredData.length < 2) return 'N/A';
                 const first = filteredData[0].activeListings;
@@ -165,9 +165,9 @@ const ActiveListing: React.FC<ActiveListingProps> = ({ data, loading }) => {
 
       {/* Growth Analysis */}
       {filteredData.length > 0 && (
-        <div className="mt-4 p-4 bg-slate-50 rounded-lg">
-          <h4 className="text-sm font-semibold text-slate-700 mb-2">Growth Analysis</h4>
-          <div className="text-xs text-slate-600 space-y-1">
+        <div className="mt-4 p-4 bg-[#F2F1EF] border border-black rounded-lg">
+          <h4 className="text-sm font-semibold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent mb-2">Growth Analysis</h4>
+          <div className="text-xs bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent space-y-1">
             {(() => {
               const totalListings = filteredData.reduce((sum, item) => sum + item.activeListings, 0);
               const avgMonthly = Math.round(totalListings / filteredData.length);

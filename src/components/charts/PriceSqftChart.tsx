@@ -215,27 +215,27 @@ const PriceSqftChart: React.FC<PriceSqftChartProps> = ({ data, loading }) => {
       {/* Summary Stats */}
       {chartData.length > 0 && (
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <div className="text-sm text-blue-600 font-medium">Current</div>
-            <div className="text-lg font-bold text-blue-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Current</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {metricConfig.formatter(currentValue)}
             </div>
           </div>
-          <div className="bg-purple-50 p-3 rounded-lg">
-            <div className="text-sm text-purple-600 font-medium">Average</div>
-            <div className="text-lg font-bold text-purple-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Average</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {metricConfig.formatter(avgValue)}
             </div>
           </div>
-          <div className="bg-green-50 p-3 rounded-lg">
-            <div className="text-sm text-green-600 font-medium">Highest</div>
-            <div className="text-lg font-bold text-green-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Highest</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {metricConfig.formatter(maxValue)}
             </div>
           </div>
-          <div className="bg-orange-50 p-3 rounded-lg">
-            <div className="text-sm text-orange-600 font-medium">Lowest</div>
-            <div className="text-lg font-bold text-orange-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Lowest</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {metricConfig.formatter(minValue)}
             </div>
           </div>

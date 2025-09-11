@@ -166,9 +166,9 @@ const WeeklyPending: React.FC<WeeklyPendingProps> = ({ data, loading }) => {
       {/* Weekly Pending Insights */}
       {filteredData.length > 0 && (
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-blue-50 p-3 rounded-lg">
-            <div className="text-sm text-blue-600 font-medium">Total Pending</div>
-            <div className="text-lg font-bold text-blue-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Total Pending</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {(() => {
                 const total = filteredData.reduce((sum, item) => {
                   if (selectedYear === 'all') {
@@ -180,9 +180,9 @@ const WeeklyPending: React.FC<WeeklyPendingProps> = ({ data, loading }) => {
               })()}
             </div>
           </div>
-          <div className="bg-green-50 p-3 rounded-lg">
-            <div className="text-sm text-green-600 font-medium">Average Weekly</div>
-            <div className="text-lg font-bold text-green-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Average Weekly</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {(() => {
                 const total = filteredData.reduce((sum, item) => {
                   if (selectedYear === 'all') {
@@ -194,9 +194,9 @@ const WeeklyPending: React.FC<WeeklyPendingProps> = ({ data, loading }) => {
               })()}
             </div>
           </div>
-          <div className="bg-purple-50 p-3 rounded-lg">
-            <div className="text-sm text-purple-600 font-medium">Peak Week</div>
-            <div className="text-lg font-bold text-purple-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Peak Week</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {(() => {
                 let maxValue = 0;
                 let maxWeek = '';
@@ -219,9 +219,9 @@ const WeeklyPending: React.FC<WeeklyPendingProps> = ({ data, loading }) => {
               })()}
             </div>
           </div>
-          <div className="bg-orange-50 p-3 rounded-lg">
-            <div className="text-sm text-orange-600 font-medium">Latest Week</div>
-            <div className="text-lg font-bold text-orange-800">
+          <div className="bg-[#F2F1EF] border border-black p-3 rounded-lg">
+            <div className="text-sm bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent font-medium">Latest Week</div>
+            <div className="text-lg font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
               {(() => {
                 const latestWeek = filteredData[filteredData.length - 1];
                 if (selectedYear === 'all') {
@@ -237,9 +237,9 @@ const WeeklyPending: React.FC<WeeklyPendingProps> = ({ data, loading }) => {
 
       {/* Weekly Analysis */}
       {filteredData.length > 0 && (
-        <div className="mt-4 p-4 bg-slate-50 rounded-lg">
-          <h4 className="text-sm font-semibold text-slate-700 mb-2">Weekly Analysis</h4>
-          <div className="text-xs text-slate-600 space-y-1">
+        <div className="mt-4 p-4 bg-[#F2F1EF] border border-black rounded-lg">
+          <h4 className="text-sm font-semibold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent mb-2">Weekly Analysis</h4>
+          <div className="text-xs bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent space-y-1">
             {(() => {
               const totalPending = filteredData.reduce((sum, item) => {
                 if (selectedYear === 'all') {

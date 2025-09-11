@@ -9,7 +9,7 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 
 // Create axios instance with default configuration
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://52.33.146.101/",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://www.refinedreport.com/backend/",
   headers: {
     'Content-Type': 'application/json',
   },
@@ -18,7 +18,7 @@ const api: AxiosInstance = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('auth_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
