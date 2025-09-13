@@ -9,7 +9,7 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 
 // Create axios instance with default configuration
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://www.refinedreport.com/backend/",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://www.refinedreport.com/backend/",
   headers: {
     'Content-Type': 'application/json',
   },
