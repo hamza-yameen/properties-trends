@@ -173,14 +173,14 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="mb-6">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
-                Data Visualization
+              <h1 className="text-headline-lg bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
+              The Refined Report
               </h1>
             </div>
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <h2 className="text-subheadline-lg text-gray-800">
               {isSignup ? 'Create Account' : 'Welcome Back'}
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="text-body-md text-gray-600 mt-2">
               {isSignup 
                 ? 'Join us to explore housing market insights' 
                 : 'Sign in to access your dashboard'
@@ -274,10 +274,10 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  {isSignup ? 'Creating Account...' : 'Signing In...'}
+                  <span className="font-subheadline">{isSignup ? 'Creating Account...' : 'Signing In...'}</span>
                 </div>
               ) : (
-                isSignup ? 'Create Account' : 'Sign In'
+                <span className="font-subheadline">{isSignup ? 'Create Account' : 'Sign In'}</span>
               )}
             </Button>
 
@@ -286,7 +286,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
                 <div className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                <span className="px-2 bg-white text-gray-500 font-body">Or continue with</span>
               </div>
             </div>
 
@@ -300,12 +300,12 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
               {isGoogleLoading ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-700 mr-2"></div>
-                  {isSignup ? 'Signing up with Google...' : 'Signing in with Google...'}
+                  <span className="font-subheadline">{isSignup ? 'Signing up with Google...' : 'Signing in with Google...'}</span>
                 </div>
               ) : (
                 <>
                   <FcGoogle className="mr-2 h-5 w-5" />
-                  {isSignup ? 'Sign up with Google' : 'Sign in with Google'}
+                  <span className="font-subheadline">{isSignup ? 'Sign up with Google' : 'Sign in with Google'}</span>
                 </>
               )}
             </Button>
@@ -313,11 +313,11 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
 
           {/* Footer */}
           <div className="text-center mt-6">
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 text-body-sm">
               {isSignup ? 'Already have an account?' : "Don't have an account?"}
               <a
                 href={isSignup ? '/login' : '/signup'}
-                className="text-blue-600 font-medium hover:underline ml-1 transition-colors duration-200"
+                className="text-blue-600 font-subheadline hover:underline ml-1 transition-colors duration-200"
               >
                 {isSignup ? 'Sign in' : 'Sign up'}
               </a>

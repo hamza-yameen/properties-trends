@@ -230,7 +230,7 @@ const Users = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-black">Role</label>
                 <Select value={roleFilter} onValueChange={setRoleFilter}>
-                  <SelectTrigger className="bg-white border-2 border-black text-black">
+                  <SelectTrigger className="shadow-lg">
                     <SelectValue placeholder="All Roles" />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-2 border-black">
@@ -245,7 +245,7 @@ const Users = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-black">Verification</label>
                 <Select value={verificationFilter} onValueChange={setVerificationFilter}>
-                  <SelectTrigger className="bg-white border-2 border-black text-black">
+                  <SelectTrigger className="shadow-lg">
                     <SelectValue placeholder="All Status" />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-2 border-black">
@@ -260,7 +260,7 @@ const Users = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-black">Sort By</label>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="bg-white border-2 border-black text-black">
+                  <SelectTrigger className="shadow-lg">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-2 border-black">

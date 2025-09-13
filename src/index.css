@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Area Extended Font Face Declarations */
+@font-face {
+  font-family: 'Area Extended';
+  src: url('./assets/fonts/AreaExtended-Semibold.woff2') format('woff2'),
+       url('./assets/fonts/AreaExtended-Semibold.woff') format('woff'),
+       url('./assets/fonts/AreaExtended-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Area Extended';
+  src: url('./assets/fonts/AreaExtended-Bold.woff2') format('woff2'),
+       url('./assets/fonts/AreaExtended-Bold.woff') format('woff'),
+       url('./assets/fonts/AreaExtended-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 @layer base {
@@ -175,5 +196,89 @@
       opacity: 1;
       transform: scale(1);
     }
+  }
+
+  /* Typography Utilities */
+  .font-headline {
+    font-family: 'Area Extended', 'Inter', 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  .font-area-extended {
+    font-family: 'Area Extended', 'Inter', 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  .font-area-extended-alt {
+    font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  .font-subheadline {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 500;
+  }
+
+  .font-body {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 300;
+  }
+
+  /* Typography Scale Classes */
+  .text-headline-xl {
+    @apply font-headline text-4xl lg:text-5xl xl:text-6xl;
+  }
+
+  .text-headline-lg {
+    @apply font-headline text-3xl lg:text-4xl xl:text-5xl;
+  }
+
+  .text-headline-md {
+    @apply font-headline text-2xl lg:text-3xl xl:text-4xl;
+  }
+
+  .text-headline-sm {
+    @apply font-headline text-xl lg:text-2xl xl:text-3xl;
+  }
+
+  .text-subheadline-xl {
+    @apply font-subheadline text-2xl lg:text-3xl xl:text-4xl;
+  }
+
+  .text-subheadline-lg {
+    @apply font-subheadline text-xl lg:text-2xl xl:text-3xl;
+  }
+
+  .text-subheadline-md {
+    @apply font-subheadline text-lg lg:text-xl xl:text-2xl;
+  }
+
+  .text-subheadline-sm {
+    @apply font-subheadline text-base lg:text-lg xl:text-xl;
+  }
+
+  .text-body-xl {
+    @apply font-body text-lg lg:text-xl xl:text-2xl;
+  }
+
+  .text-body-lg {
+    @apply font-body text-base lg:text-lg xl:text-xl;
+  }
+
+  .text-body-md {
+    @apply font-body text-sm lg:text-base xl:text-lg;
+  }
+
+  .text-body-sm {
+    @apply font-body text-xs lg:text-sm xl:text-base;
   }
 }

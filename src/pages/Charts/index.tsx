@@ -249,7 +249,7 @@ const Home = () => {
         {/* Dropdown for city selection */}
         <div className="flex justify-center mb-4">
           <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-            <SelectTrigger className="w-[280px] bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg">
+            <SelectTrigger className="w-[280px] shadow-lg">
               <SelectValue placeholder="Select a city" />
             </SelectTrigger>
             <SelectContent>

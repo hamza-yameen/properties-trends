@@ -6,6 +6,7 @@ import { apiService } from '@/services/apiServices';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from "@/components/ui/card"
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import Hero from "@/components/ui/Hero";
 
 
 const Tables = () => {
@@ -47,9 +48,9 @@ const Tables = () => {
 
 
   return (
-    <div className="min-h-screen bg-[#F2F1EF]">
+    <div className="min-h-screen bg-[#F1EFED]">
       <Navbar />
-      <AuroraBackground className="min-h-screen">
+      {/* <AuroraBackground className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">  
           <div className="text-center mb-12 animate-fade-in z-10 relative">
             <h2 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6 animate-scale-in">
@@ -144,17 +145,19 @@ const Tables = () => {
             </Card>
           </div>
         </div>
-      </AuroraBackground>
+      </AuroraBackground> */}
+
+      <Hero />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Filter Form */}
-        <div className="backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-[#000000cc] mb-12">
+        <div className="py-8 mb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* City Selection */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-[#000000]">City</label>
               <Select value={city} onValueChange={setCity}>
-                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
+                <SelectTrigger className="shadow-lg">
                   <SelectValue placeholder="Select a city" />
                 </SelectTrigger>
                 <SelectContent>
@@ -172,7 +175,7 @@ const Tables = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-[#000000]">Year</label>
               <Select value={year} onValueChange={setYear}>
-                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
+                <SelectTrigger className="shadow-lg">
                   <SelectValue placeholder="Select year" />
                 </SelectTrigger>
                 <SelectContent>
@@ -190,7 +193,7 @@ const Tables = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-[#000000]">Month</label>
               <Select value={month} onValueChange={setMonth}>
-                <SelectTrigger className="bg-white/70 border-[#000000cc] focus:border-[#000000cc] focus:ring-[#000000cc]/20 text-[#000000cc]">
+                <SelectTrigger className="shadow-lg">
                   <SelectValue placeholder="Select month" />
                 </SelectTrigger>
                 <SelectContent>

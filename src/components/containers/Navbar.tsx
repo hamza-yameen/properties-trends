@@ -89,14 +89,14 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="bg-[#F2F1EF] backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
+    <nav className="bg-[#F1EFED] backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-2 md:py-4">
         <div className="flex flex-col md:flex-row items-center justify-between py-2 sm:py-0 sm:h-16">
           {/* Logo - Full width on mobile, left-aligned on desktop */}
           <div className="flex items-center mb-2 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
             <Link to="/">
               <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-black via-gray-700 to-gray-500 bg-clip-text text-transparent">
-                Data Visualization
+              The Refined Report
               </h1>
             </Link>
           </div>

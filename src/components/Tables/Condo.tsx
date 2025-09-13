@@ -106,8 +106,7 @@ const  Condo = ({ data, loading = false }: CondoProps) => {
       <CardHeader className="pb-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <CardTitle className="text-2xl font-bold text-slate-800 uppercase tracking-wide">RIVER OAKS | CONDOMINIUMS</CardTitle>
-            <CardDescription className="text-slate-600 mt-2">Comprehensive condo market data by price range</CardDescription>
+          <CardTitle className="text-[12px] font-light font-montserrat text-slate-800 uppercase tracking-wide">River oaks | <span className='font-bold'>condominiums</span></CardTitle>
           </div>
           <div className="flex items-center gap-3">
             <Button 
@@ -135,49 +134,49 @@ const  Condo = ({ data, loading = false }: CondoProps) => {
               <Table className="w-full">
                 <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 border-b border-gray-200">
                   <TableRow className="border-none hover:bg-transparent">
-                    <TableHead className="font-semibold text-slate-700 text-left py-4 px-4">PRICE RANGE</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">PENDING</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">ACTIVE</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">CLOSED</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">NEW</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">CHANGED</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">DOM</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">LAST MONTH</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">LAST QUARTER</TableHead>
-                    <TableHead className="font-semibold text-slate-700 text-center py-4 px-2">LAST YEAR</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-left py-4 px-4 uppercase tracking-wide">PRICE RANGE</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">PENDING</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">ACTIVE</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">CLOSED</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">NEW</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">CHANGED</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">DOM</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">LAST MONTH</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">LAST QUARTER</TableHead>
+                    <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">LAST YEAR</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {condoData.map((item, index) => (
                     <TableRow key={index} className="hover:bg-gray-50/50 transition-colors duration-200 border-b border-gray-100">
-                      <TableCell className="font-medium text-slate-800 text-left py-3 px-4">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-800 text-left py-3 px-4 uppercase tracking-wide">
                         {item.pricerange}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Pending/ Signed Contract"] !== null ? item["Pending/ Signed Contract"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Total Actives"] !== null ? item["Total Actives"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Sold and Closed"] !== null ? item["Sold and Closed"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["New Listings"] !== null ? item["New Listings"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Price Adjustments"] !== null ? item["Price Adjustments"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["DOM"] !== null ? item["DOM"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Change from Last Month"] !== null ? item["Change from Last Month"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["Previous 3 Months Change"] !== null ? item["Previous 3 Months Change"] : '-'}
                       </TableCell>
-                      <TableCell className="text-slate-700 text-center py-3 px-2">
+                      <TableCell className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-3 px-2 uppercase tracking-wide">
                         {item["List to Close +/-"] !== null ? item["List to Close +/-"] : '-'}
                       </TableCell>
                     </TableRow>

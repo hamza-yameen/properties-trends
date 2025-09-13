@@ -34,6 +34,17 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'headline': ['Area Extended', 'Space Grotesk', 'system-ui', 'sans-serif'], // Area Extended with fallbacks
+				'area-extended': ['Area Extended', 'Space Grotesk', 'system-ui', 'sans-serif'],
+				'subheadline': ['Montserrat', 'system-ui', 'sans-serif'],
+				'body': ['Montserrat', 'system-ui', 'sans-serif'],
+			},
+			fontWeight: {
+				'headline': '600', // Semibold for headlines
+				'subheadline': '500', // Medium for subheadlines
+				'body': '300', // Light for body copy
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
