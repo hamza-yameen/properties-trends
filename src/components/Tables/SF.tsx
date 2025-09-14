@@ -131,8 +131,8 @@ const SF = ({ data, loading = false }: SFProps) => {
           <div className="overflow-x-auto">
             <div className="max-h-[600px] overflow-y-auto">
               <Table className="w-full">
-                <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 border-b border-gray-200">
-                  <TableRow className="border-none hover:bg-transparent">
+                <TableHeader className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 border-b">
+                  <TableRow className="border-b border-[#3A3B40]/50 hover:bg-transparent">
                     <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-left py-4 px-4 uppercase tracking-wide">PRICE RANGE</TableHead>
                     <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">PENDING</TableHead>
                     <TableHead className="font-montserrat font-semibold text-[12px] text-slate-700 text-center py-4 px-2 uppercase tracking-wide">ACTIVE</TableHead>
@@ -147,7 +147,7 @@ const SF = ({ data, loading = false }: SFProps) => {
                 </TableHeader>
                 <TableBody>
                   {sfData.map((item, index) => (
-                    <TableRow key={index} className="hover:bg-gray-50/50 transition-colors duration-200 border-b border-gray-100">
+                    <TableRow key={index} className={`hover:bg-gray-50/50 transition-colors duration-200 border-b border-[#3A3B40]/50 ${index === sfData.length - 1 ? 'border-b border-[#3A3B40]/50' : ''}`}>
                       <TableCell className="font-montserrat font-semibold text-[12px] text-slate-800 text-left py-3 px-4 uppercase tracking-wide">
                         {item.pricerange}
                       </TableCell>
