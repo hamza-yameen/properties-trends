@@ -102,7 +102,7 @@ const  Condo = ({ data, loading = false }: CondoProps) => {
   }
   
   return (
-    <Card className="mb-12 bg-white/90 backdrop-blur-sm border border-gray-200/50 shadow-lg rounded-xl">
+    <Card className="mb-12 bg-white/90 backdrop-blur-sm border border-gray-200/50 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] rounded-xl">
       <CardHeader className="pb-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
@@ -148,7 +148,7 @@ const  Condo = ({ data, loading = false }: CondoProps) => {
                 </TableHeader>
                 <TableBody>
                   {condoData.map((item, index) => (
-                    <TableRow key={index} className={`hover:bg-gray-50/50 transition-colors duration-200 border-b border-[#3A3B40]/50 ${index === condoData.length - 1 ? 'border-b border-[#3A3B40]/50' : ''}`}>
+                    <TableRow key={index} className="hover:bg-gray-50/50 transition-colors duration-200 border-b border-[#3A3B40]/50">
                       <TableCell className="font-montserrat font-semibold text-[12px] text-slate-800 text-left py-3 px-4 uppercase tracking-wide">
                         {item.pricerange}
                       </TableCell>
