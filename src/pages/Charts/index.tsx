@@ -24,7 +24,7 @@ import PriceSqftChart from '@/components/charts/PriceSqftChart';
 import { Particles } from '@/components/ui/particles';
 
 const Home = () => {
-  const [selectedLocation, setSelectedLocation] = useState<string>("Bellaire Area");
+  const [selectedLocation, setSelectedLocation] = useState<string>("Houston");
   const [allLocations, setAllLocations] = useState<any>([]);
   const { getToken } = useAuth();
   const navigate = useNavigate();

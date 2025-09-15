@@ -12,7 +12,7 @@ import Footer from "@/components/containers/Footer";
 const Tables = () => {
   const [sfData, setSFData] = useState([])
   const [contraData, setContraData] = useState([])
-  const [city, setCity] = useState("Bellaire Area")
+  const [city, setCity] = useState("Houston")
   const [year, setYear] = useState("2024")
   const [month, setMonth] = useState("4")
   const [loading, setLoading] = useState(false)
