@@ -13,8 +13,8 @@ const Tables = () => {
   const [sfData, setSFData] = useState([])
   const [contraData, setContraData] = useState([])
   const [city, setCity] = useState("Houston")
-  const [year, setYear] = useState("2024")
-  const [month, setMonth] = useState("4")
+  const [year, setYear] = useState(new Date().getFullYear().toString())
+  const [month, setMonth] = useState((new Date().getMonth() + 1).toString())
   const [loading, setLoading] = useState(false)
   const [allLocations, setAllLocations] = useState([])
 
