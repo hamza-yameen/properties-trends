@@ -20,11 +20,11 @@ interface PropertyData {
 
 interface SFProps {
   data: PropertyData[],
-  
-  loading?: boolean
+  loading?: boolean,
+  city: string
 }
 
-const SF = ({ data, loading = false }: SFProps) => {
+const SF = ({ data, loading = false, city }: SFProps) => {
   const [sfData, setSFData] = useState(data)
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const SF = ({ data, loading = false }: SFProps) => {
       <CardHeader className="pb-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <CardTitle className="text-[12px] font-light font-montserrat text-slate-800 uppercase tracking-wide">River oaks | <span className='font-bold'>Single Family Homes</span></CardTitle>
+            <CardTitle className="text-[12px] font-light font-montserrat text-slate-800 uppercase tracking-wide">{city} | <span className='font-bold'>Single Family Homes</span></CardTitle>
           </div>
           <div className="flex items-center gap-3">
             <Button 

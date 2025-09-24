@@ -21,9 +21,10 @@ interface CondoData {
 interface CondoProps {
   data: CondoData[]
   loading?: boolean
+  city: string
 }
 
-const  Condo = ({ data, loading = false }: CondoProps) => {
+const  Condo = ({ data, loading = false, city }: CondoProps) => {
   const [condoData, setCondoData] = useState(data)
 
   useEffect(() => {
@@ -106,7 +107,7 @@ const  Condo = ({ data, loading = false }: CondoProps) => {
       <CardHeader className="pb-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-          <CardTitle className="text-[12px] font-light font-montserrat text-slate-800 uppercase tracking-wide">River oaks | <span className='font-bold'>condominiums</span></CardTitle>
+          <CardTitle className="text-[12px] font-light font-montserrat text-slate-800 uppercase tracking-wide">{city} | <span className='font-bold'>condominiums</span></CardTitle>
           </div>
           <div className="flex items-center gap-3">
             <Button 

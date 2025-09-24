@@ -235,8 +235,8 @@ const Tables = () => {
           </div>
         </div>
 
-        <SF data={sfData} loading={loading} />
-        <Condo data={contraData} loading={loading} />
+        <SF data={sfData} loading={loading} city={city} />
+        <Condo data={contraData} loading={loading} city={city} />
 
         <div>
           <p className='text-[#3A3B40] text-[12px] font-normal uppercase'>*Market Area Information obtained from Houston Association of Realtors (HAR). Statistics are subject to change due to individual real estate company reporting disciplines. 2800 KIRBY DRIVE, SUITE A-206, HOUSTON, TEXAS 77098. 281.652.5588. © 2025 DOUGLAS ELLIMAN REAL ESTATE. ALL MATERIAL PRESENTED HEREIN IS INTENDED FOR INFORMATION PURPOSES ONLY. WHILE THIS INFORMATION IS BELIEVED TO BE CORRECT; IT IS REPRESENTED SUBJECT TO ERRORS, OMISSION, CHANGES, OR WITHDRAWAL WITHOUT NOTICE. ALL PROPERTY INFORMATION, INCLUDING, BUT NOT LIMITED TO SQUARE FOOTAGE, ROOM COUNT, NUMBER OF BEDROOMS AND THE SCHOOL DISTRICT IN PROPERTY LISTINGS ARE DEEMED RELIABLE, BUT SHOULD BE VERIFIED BY THE SALES ASSOCIATE'S OWN ATTORNEY, ARCHITECT OR ZONING EXPERT. EQUAL HOUSING OPPORTUNITY. <img src={Home_Des_Icon} alt="Home_Des_Icon" className="inline ml-1"/></p>

@@ -281,7 +281,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
               )}
             </Button>
 
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200" />
               </div>
@@ -308,7 +308,7 @@ const Auth: React.FC<AuthProps> = ({ mode = 'signup' }) => {
                   <span className="font-subheadline">{isSignup ? 'Sign up with Google' : 'Sign in with Google'}</span>
                 </>
               )}
-            </Button>
+            </Button> */}
           </form>
 
           {/* Footer */}
