@@ -37,8 +37,28 @@ const Tables = () => {
     setLoading(true)
     const response = await apiService.getTableData(city, year, month)
     if (response.success) {
-      setSFData(response.data.sf)
-      setContraData(response.data.condo)
+      // Sort SF data by price range in ascending order
+      const sortedSFData = response.data.sf.sort((a: any, b: any) => {
+        // Extract numeric values from price range strings for comparison
+        const getPriceValue = (priceRange: string) => {
+          const match = priceRange.match(/\$?([\d,]+)/);
+          return match ? parseInt(match[1].replace(/,/g, '')) : 0;
+        };
+        return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
+      });
+      
+      // Sort Condo data by price range in ascending order
+      const sortedCondoData = response.data.condo.sort((a: any, b: any) => {
+        // Extract numeric values from price range strings for comparison
+        const getPriceValue = (priceRange: string) => {
+          const match = priceRange.match(/\$?([\d,]+)/);
+          return match ? parseInt(match[1].replace(/,/g, '')) : 0;
+        };
+        return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
+      });
+      
+      setSFData(sortedSFData)
+      setContraData(sortedCondoData)
     }else{
       setSFData([])
       setContraData([])
