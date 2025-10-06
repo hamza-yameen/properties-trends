@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import Navbar from "@/components/containers/Navbar";
 import SF from "@/components/Tables/SF";
 import Condo from "@/components/Tables/Condo";
@@ -15,8 +15,133 @@ const Tables = () => {
   const [city, setCity] = useState("Houston")
   const [year, setYear] = useState(new Date().getFullYear().toString())
   const [month, setMonth] = useState((new Date().getMonth() + 1).toString())
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [allLocations, setAllLocations] = useState([])
+
+  const getAllLocationsHandler = async () => {
+    try {
+      const response = await apiService.getAllLocations()
+      if (response.success && response.data?.locations) {
+        setAllLocations(response.data.locations)
+      } else {
+        console.warn("Failed to fetch locations:", response.message)
+        setAllLocations([])
+      }
+    } catch (error) {
+      console.error("Error fetching locations:", error)
+      setAllLocations([])
+    }
+  }
+
+  const getDataTableHandler = useCallback(async () => {
+    setLoading(true)
+    try {
+      const response = await apiService.getTableData(city, year, month)
+      console.log("API Response:", response)
+      
+      if (response.success && response.data) {
+        console.log("Raw response data:", response.data)
+        
+        // Check if data has the expected structure
+        if (response.data.sf && Array.isArray(response.data.sf)) {
+          // Transform SF data to ensure it has the expected structure
+          const transformedSFData = response.data.sf.map((item: any) => {
+            // If the item already has pricerange, use it; otherwise use index
+            const pricerange = item.pricerange || item.index || 'Unknown';
+            
+            return {
+              pricerange: pricerange,
+              "Pending/ Signed Contract": item["Pending/ Signed Contract"] || 0,
+              "Price Adjustments": item["Price Adjustments"] || 0,
+              "Sold and Closed": item["Sold and Closed"] || 0,
+              "New Listings": item["New Listings"] || 0,
+              "DOM": item["DOM"] || 0,
+              "List to Close +/-": item["List to Close +/-"] || 0,
+              "Total Actives": item["Total Actives"] || 0,
+              "Change from Last Month": item["Change from Last Month"] || "0%",
+              "Previous 3 Months Change": item["Previous 3 Months Change"] || 0,
+              "Trending < >": item["Trending < >"] || "→"
+            };
+          });
+
+          // Sort SF data by price range in ascending order
+          const sortedSFData = transformedSFData.sort((a: any, b: any) => {
+            // Extract numeric values from price range strings for comparison
+            const getPriceValue = (priceRange: string) => {
+              // Handle different price range formats
+              if (priceRange.includes('M+')) {
+                const match = priceRange.match(/(\d+)M\+/);
+                return match ? parseInt(match[1]) * 1000000 : 0;
+              } else if (priceRange.includes('–')) {
+                const match = priceRange.match(/(\d+)–(\d+)M/);
+                return match ? parseInt(match[1]) * 1000000 : 0;
+              } else {
+                // Handle traditional format like $100,000
+                const match = priceRange.match(/\$?([\d,]+)/);
+                return match ? parseInt(match[1].replace(/,/g, '')) : 0;
+              }
+            };
+            return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
+          });
+          console.log("sortedSFData : ", sortedSFData)
+          setSFData(sortedSFData)
+        } else {
+          console.warn("SF data not found or not an array:", response.data.sf)
+          setSFData([])
+        }
+        
+        // Check if data has the expected structure
+        if (response.data.condo && Array.isArray(response.data.condo)) {
+          // Transform condo data to match expected component structure
+          const transformedCondoData = response.data.condo.map((item: any) => ({
+            pricerange: item.index, // Use index as pricerange
+            "Pending/ Signed Contract": item["Pending/ Signed Contract"] || 0,
+            "Price Adjustments": 0, // Not available in current data structure
+            "Sold and Closed": 0, // Not available in current data structure
+            "New Listings": 0, // Not available in current data structure
+            "DOM": 0, // Not available in current data structure
+            "List to Close +/-": 0, // Not available in current data structure
+            "Total Actives": 0, // Not available in current data structure
+            "Change from Last Month": "0%", // Not available in current data structure
+            "Previous 3 Months Change": 0, // Not available in current data structure
+            "Trending < >": "→" // Default trend
+          }));
+
+          // Sort Condo data by price range in ascending order
+          const sortedCondoData = transformedCondoData.sort((a: any, b: any) => {
+            // Extract numeric values from price range strings for comparison
+            const getPriceValue = (priceRange: string) => {
+              // Handle different price range formats
+              if (priceRange.includes('M+')) {
+                const match = priceRange.match(/(\d+)M\+/);
+                return match ? parseInt(match[1]) * 1000000 : 0;
+              } else if (priceRange.includes('–')) {
+                const match = priceRange.match(/(\d+)–(\d+)M/);
+                return match ? parseInt(match[1]) * 1000000 : 0;
+              }
+              return 0;
+            };
+            return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
+          });
+          console.log("sortedCondoData : ", sortedCondoData)
+          setContraData(sortedCondoData)
+        } else {
+          console.warn("Condo data not found or not an array:", response.data.condo)
+          setContraData([])
+        }
+      } else {
+        console.error("API call failed:", response.message)
+        setSFData([])
+        setContraData([])
+      }
+    } catch (error) {
+      console.error("Error fetching table data:", error)
+      setSFData([])
+      setContraData([])
+    } finally {
+      setLoading(false)
+    }
+  }, [city, year, month])
 
   useEffect(() => {
     getAllLocationsHandler()
@@ -24,48 +149,7 @@ const Tables = () => {
 
   useEffect(() => {
     getDataTableHandler()
-  }, [city, year, month])
-
-  const getAllLocationsHandler = async () => {
-    const response = await apiService.getAllLocations()
-    if (response.success) {
-      setAllLocations(response.data?.locations)
-    }
-  }
-
-  const getDataTableHandler = async () => {
-    setLoading(true)
-    const response = await apiService.getTableData(city, year, month)
-    if (response.success) {
-      // Sort SF data by price range in ascending order
-      const sortedSFData = response.data.sf.sort((a: any, b: any) => {
-        // Extract numeric values from price range strings for comparison
-        const getPriceValue = (priceRange: string) => {
-          const match = priceRange.match(/\$?([\d,]+)/);
-          return match ? parseInt(match[1].replace(/,/g, '')) : 0;
-        };
-        return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
-      });
-      
-      // Sort Condo data by price range in ascending order
-      const sortedCondoData = response.data.condo.sort((a: any, b: any) => {
-        // Extract numeric values from price range strings for comparison
-        const getPriceValue = (priceRange: string) => {
-          const match = priceRange.match(/\$?([\d,]+)/);
-          return match ? parseInt(match[1].replace(/,/g, '')) : 0;
-        };
-        return getPriceValue(a.pricerange) - getPriceValue(b.pricerange);
-      });
-      
-      setSFData(sortedSFData)
-      setContraData(sortedCondoData)
-    }else{
-      setSFData([])
-      setContraData([])
-    }
-    setLoading(false)
-  }
-
+  }, [getDataTableHandler])
 
   return (
     <div className="min-h-screen bg-[#F1EFED]">

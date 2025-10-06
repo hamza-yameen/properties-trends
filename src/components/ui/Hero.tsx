@@ -29,7 +29,7 @@ const Hero = () => {
 
         <div className="w-full py-8 border-y border-[#3A3B40]/40">
           <p className="font-montserrat font-medium text-[#3A3B40] text-center leading-relaxed">
-            A focused look at Houston's ultra-luxury market, providing data-driven insights on<br /> single-family homes and condominiums priced at $2M and above.
+            A focused look at Houston's ultra-luxury market, providing data-driven insights on<br /> single-family homes and condominiums priced at $1M and above.
           </p>
         </div>
 
